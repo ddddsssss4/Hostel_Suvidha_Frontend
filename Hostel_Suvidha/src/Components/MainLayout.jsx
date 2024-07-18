@@ -24,13 +24,13 @@ const MainLayout = () => {
         </div>
         <ul className='pt-24 text-[#5c5c5d]'>
           <NavLinkItem to="/" label="Dashboard" />
-          <NavLinkItem to="/customer-complaints" label="Customer Complaints" />
+          <NavLinkItem to="/customer-complaints" label="Complaints" />
           <NavLinkItem to="/settings" label="Settings" />
           <NavLinkItem to="/requests" label="Requests" />
           <NavLinkItem to="/add-product" label="Add Product" />
         </ul>
       </nav>
-      <div className="w-[77%] h-screen overflow-y-auto ">
+      <div className="w-[77%] h-screen overflow-y-auto bg-black ">
         <Outlet />  {/* This is where the page content will be rendered */}
       </div>
     </div>
