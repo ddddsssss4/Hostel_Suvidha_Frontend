@@ -42,7 +42,7 @@ const Login = () => {
               id='regNumber'
               value={formData.regNumber}
               onChange={handleChange}
-              className='w-full p-2 border rounded mb-4 bg-[#202528]'
+              className='w-full p-2 border rounded mb-4 text-white bg-[#202528]'
             />
             <label className='font-poppins block mb-1 text-white' htmlFor='password'>Password</label>
             <input
@@ -50,7 +50,7 @@ const Login = () => {
               id='password'
               value={formData.password}
               onChange={handleChange}
-              className='w-full p-2 border rounded mb-4 bg-[#202528]'
+              className='w-full p-2 border rounded mb-4 text-white bg-[#202528]'
             />
             <div className='font-poppins text-right mb-4 text-white'>Forgot Password?</div>
             <button type='submit' className='font-poppins w-full p-2 bg-white text-black rounded'>LOGIN</button>
