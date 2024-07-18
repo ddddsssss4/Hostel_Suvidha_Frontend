@@ -14,7 +14,7 @@ const MainLayout = () => (
         <li className="mb-4"><NavLink to="/add-product" className="block py-2 px-4 rounded hover:bg-gray-300">Add Product</NavLink></li>
       </ul>
     </nav>
-    <div className="ml-1/3 w-2/3 p-4">
+    <div className=" w-2/3 ">
       <Outlet />  {/* This is where the page content will be rendered */}
     </div>
   </div>

@@ -17,8 +17,8 @@ const MainLayout = () => {
         <div className='absolute top-0 left-0 w-full'>
           <NavLink to="/" className="text-white block cursor-pointer pl-4 pt-8">
             <h1>
-              <span className="text-3xl font-bold font-poppins">Hostel</span>
-              <span className="text-3xl font-bold font-poppins text-[#FF4343]">Suvidha</span>
+              <span className="text-2xl font-bold font-poppins">Hostel</span>
+              <span className="text-2xl font-bold font-poppins text-[#FF4343]">Suvidha</span>
             </h1>
           </NavLink>
         </div>
@@ -30,7 +30,7 @@ const MainLayout = () => {
           <NavLinkItem to="/add-product" label="Add Product" />
         </ul>
       </nav>
-      <div className="w-[77%] p-4">
+      <div className="w-[77%] h-screen overflow-y-auto ">
         <Outlet />  {/* This is where the page content will be rendered */}
       </div>
     </div>
