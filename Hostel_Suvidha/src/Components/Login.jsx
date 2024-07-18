@@ -9,13 +9,22 @@ const Login = () => {
   });
 
   // Handler for form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle the login logic here (e.g., API call)
-    console.log('Registration Number:', formData.regNumber);
-    console.log('Password:', formData.password);
-    console.log(formData);
+    
+    try {
+      const response = await axios.post('http://localhost:5000/api/v1/students/login', null, {
+        headers: {
+          'regNumber': formData.regNumber,
+          'password': formData.password
+        }
+      });
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('There was an error!', error);
+    }
   };
+
 
   // Handler for input change
   const handleChange = (e) => {
@@ -53,7 +62,7 @@ const Login = () => {
               className='w-full p-2 border rounded mb-4 text-white bg-[#202528]'
             />
             <div className='font-poppins text-right mb-4 text-white'>Forgot Password?</div>
-            <button type='submit' className='font-poppins w-full p-2 bg-white text-black rounded'>LOGIN</button>
+            <button type='submit' onClick={handleSubmit}  className='font-poppins w-full p-2 bg-white text-black rounded'>LOGIN</button>
           </div>
         </form>
       </div>
