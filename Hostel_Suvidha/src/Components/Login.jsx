@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import loginbg from '../assets/loginbg.png';
-
+import axios from 'axios';
 const Login = () => {
   // State object for form inputs
   const [formData, setFormData] = useState({
@@ -13,11 +13,11 @@ const Login = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/students/login', null, {
-        headers: {
+      const response = await axios.post('http://localhost:8000/api/v1/students/login', {
+        
           'regNumber': formData.regNumber,
           'password': formData.password
-        }
+      
       });
       console.log('Response:', response.data);
     } catch (error) {
