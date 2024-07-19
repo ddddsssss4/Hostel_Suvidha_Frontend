@@ -26,8 +26,10 @@ const Dashboard = () => (
     {/* Right side div */}
     <div className="w-[35%] bg-black ">
       {/* Add any content you want inside this div */}
-      <div className="absolute right-0 top-0 p-4 text-white text-medium font-extrabold">
+      <div className=' bg-red-500'>
+      <div className="absolute right-6 bg-red-600 top-0 p-4 text-white text-medium font-extrabold">
             AMAN KUMAR
+          </div>
           </div>
           <div className='pt-8 '>
             Recent Updates
