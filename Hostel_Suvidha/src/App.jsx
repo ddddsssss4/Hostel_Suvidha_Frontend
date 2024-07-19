@@ -14,7 +14,7 @@ import Requests from './Components/Requests';
 import AddProduct from './Components/AddProduct';
 
 import MainLayout from './Components/MainLayout';
-import FullPageLayout from './Components/FullPageLayout';
+
 
 const App = () => (
   <BrowserRouter>
@@ -26,9 +26,9 @@ const App = () => (
         <Route path="/requests" element={<Requests />} />
         <Route path="/add-product" element={<AddProduct />} />
       </Route>
-      <Route element={<FullPageLayout />}>
+      
         <Route path="/login" element={<LoginPage/>} />
-      </Route>
+      
     </Routes>
   </BrowserRouter>
 );
