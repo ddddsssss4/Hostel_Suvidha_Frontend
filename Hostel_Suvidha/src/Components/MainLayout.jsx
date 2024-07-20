@@ -24,7 +24,7 @@ const MainLayout = () => {
         </div>
         <ul className='pt-24 text-[#5c5c5d]'>
           <NavLinkItem to="/" label="Dashboard" />
-          <NavLinkItem to="/customer-complaints" label="Complaints" />
+          <NavLinkItem to="/complaints" label="Complaints" />
           <NavLinkItem to="/settings" label="Settings" />
           <NavLinkItem to="/requests" label="Requests" />
           <NavLinkItem to="/add-product" label="Add Product" />
