@@ -16,10 +16,10 @@ const Complaints = () => {
   };
 
   return (
-    <div className="bg-black">
-      <div className="" style={{ backgroundImage: `url(${bgelement})` }}>
-        <h1 className="mt-[50px] text-white text-3xl font-extrabold pb-6">Complaints</h1>
-        <div className="grid grid-cols-3 grid-rows-3 gap-8 w-[620px] hover:cursor-pointer">
+    <div className="">
+      
+        <h1 className="mt-24 text-white text-3xl font-extrabold pb-6">COMPLAINTS</h1>
+        <div className="grid grid-cols-3 grid-rows-3 gap-8 w-[620px] overflow-hidden hover:cursor-pointer">
           <div onClick={() => goToComplaint('Electronic')}><img src={Electronic} alt="Electronic Complaints" /></div>
           <div onClick={() => goToComplaint('Furniture')}><img src={Furniture} alt="Furniture Complaints" /></div>
           <div onClick={() => goToComplaint('Washroom')}><img src={Washroom} alt="Washroom Complaints" /></div>
@@ -27,7 +27,7 @@ const Complaints = () => {
           <div onClick={() => goToComplaint('Wifi')}><img src={Wifi} alt="Wifi Complaints" /></div>
           <div onClick={() => goToComplaint('Disciplinary')}><img src={Disciplinary} alt="Disciplinary Complaints" /></div>
         </div>
-      </div>
+      
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 const MainLayout = () => (
-  <div className="flex h-screen">
+  <div className="flex h-screen ">
     
     <nav className="fixed w-1/3 h-full  p-4">
     

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import loginbg from '../assets/loginbg.png';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
   // State object for form inputs
   const [formData, setFormData] = useState({
     regNumber: '',
     password: ''
   });
-
+  const navigate=useNavigate();
   // Handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,9 +18,11 @@ const Login = () => {
         
           'regNumber': formData.regNumber,
           'password': formData.password
+          
       
       });
       console.log('Response:', response.data);
+      navigate("/");
     } catch (error) {
       console.error('There was an error!', error);
     }
