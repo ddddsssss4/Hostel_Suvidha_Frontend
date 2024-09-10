@@ -114,7 +114,7 @@ const FormValue1 = ({ backgroundImage }) => {
 
                   <button
                     type="submit"
-                    className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+                    className=" bg-indigo-600 text-white py-2 px-10 rounded-md hover:bg-indigo-700"
                   >
                     Submit
                   </button>
