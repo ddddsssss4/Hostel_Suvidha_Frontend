@@ -13,7 +13,7 @@ const ElectronicComplaints = ({}) => (
     />
     <div className="flex flex-row mt-[50px] items-center">
       <h1 className="font-extrabold text-3xl pr-2">
-        ELECTRONIC
+        ELECTRICAL
       </h1>
       <div className="h-[40px] w-[40px]">
         <img src={Electronic} alt="Electronic" />
