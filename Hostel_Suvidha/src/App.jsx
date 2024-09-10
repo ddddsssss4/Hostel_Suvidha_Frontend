@@ -30,12 +30,12 @@ const App = () => (
         <Route path="/settings" element={<Settings />} />
         <Route path="/requests" element={<Requests />} />
         <Route path="/add-product" element={<AddProduct />} />
-        <Route path="/Complaints/:type" element={<Electronic/>}/>
-        <Route path="/Complaints/:type" element={<Furniture/>}/>
-        <Route path="/Complaints/:type" element={<WashRoom/>}/>
-        <Route path="/Complaints/:type" element={<RoomService/>}/>
-        <Route path="/Complaints/:type" element={<Disciplinary/>}/>
-        <Route path="/Complaints/:type" element={<Wifi/>}/>
+        <Route path="/Complaints/Electronic" element={<Electronic/>}/>
+        <Route path="/Complaints/Furniture" element={<Furniture/>}/>
+        <Route path="/Complaints/Washroom" element={<WashRoom/>}/>
+        <Route path="/Complaints/RoomService" element={<RoomService/>}/>
+        <Route path="/Complaints/Disciplinary" element={<Disciplinary/>}/>
+        <Route path="/Complaints/Wifi" element={<Wifi/>}/>
       </Route>
       
         <Route path="/login" element={<LoginPage/>} />
