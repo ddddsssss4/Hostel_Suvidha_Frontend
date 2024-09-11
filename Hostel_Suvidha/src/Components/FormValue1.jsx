@@ -84,7 +84,7 @@ const FormValue1 = ({ backgroundImage }) => {
                       <Field
                         name="description"
                         as="textarea"
-                        className="block w-full resize-none rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white bg-[#171A1C] p-4 placeholder-gray-500 h-full max-h-full"
+                        className="block w-full resize-none rounded-md focus:outline-none sm:text-sm text-white bg-[#171A1C] p-4 placeholder-gray-500 h-full max-h-full"
                         placeholder="Description up to 20 to 30 words..."
                       />
                     </div>
@@ -114,8 +114,7 @@ const FormValue1 = ({ backgroundImage }) => {
 
                   <button
                     type="submit"
-                    className=" bg-indigo-600 text-white py-2 px-10 rounded-md hover:bg-indigo-700"
-                  >
+                    className=" bg-indigo-600 text-white py-2 px-10 rounded-md hover:bg-indigo-700">
                     Submit
                   </button>
                 </Form>
