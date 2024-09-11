@@ -20,7 +20,7 @@ const ElectronicComplaints = ({}) => (
       </div>
     </div>
     <div className=''>
-    <FormValue1 backgroundImage={bg} />
+      <FormValue1 backgroundImage={bg} />
     </div>
   </div>
 );

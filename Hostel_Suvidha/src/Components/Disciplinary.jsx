@@ -15,7 +15,7 @@ import Disciplinary2 from '../assets/Disciplinary_logo.png'
       </div>
     </div>
     <div className=''>
-    <FormValue1 backgroundImage={bg} />
+      <FormValue1 backgroundImage={bg} />
     </div>
   </div>
   )
