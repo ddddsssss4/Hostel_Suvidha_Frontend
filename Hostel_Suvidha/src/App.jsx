@@ -20,6 +20,7 @@ import WashRoom from './Components/WashRoom'
 import RoomService from './Components/RoomService'
 import Disciplinary from './Components/Disciplinary'
 import Wifi from './Components/Wifi'
+import Laundry from './Components/Laundry'
 
 const App = () => (
   <BrowserRouter>
@@ -29,6 +30,7 @@ const App = () => (
         <Route path="/complaints" element={<Complaints/>} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/requests" element={<Requests />} />
+        <Route path="/laundry" element={<Laundry />} />
         <Route path="/add-product" element={<AddProduct />} />
         <Route path="/Complaints/Electronic" element={<Electronic/>}/>
         <Route path="/Complaints/Furniture" element={<Furniture/>}/>
