@@ -23,6 +23,7 @@ import Wifi from './Components/Wifi'
 import Grievances from './Components/Grievances';
 import Miscellaneous from './Components/Miscellaneous';
 import FaceRecognition from './Pages/FaceRecognition';
+import Laundry from './Components/Laundry'
 
 const App = () => (
   <BrowserRouter>
@@ -32,6 +33,7 @@ const App = () => (
         <Route path="/complaints" element={<Complaints/>} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/requests" element={<Requests />} />
+        <Route path="/laundry" element={<Laundry />} />
         <Route path="/add-product" element={<AddProduct />} />
         <Route path="/Complaints/Electronic" element={<Electronic/>}/>
         <Route path="/Complaints/Furniture" element={<Furniture/>}/>
