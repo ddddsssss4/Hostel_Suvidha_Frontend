@@ -115,7 +115,7 @@ const Dashboard = () => {
             </div>
 
             <div className="text-xl font-extrabold text-white mb-4 mt-8">RECENT REQUESTS</div>
-            <div className="flex justify-center items-top pb-4 mb-2 w-5/6 h-80 bg-[#202528] rounded-3xl overflow-y-auto custom-scroll shadow-black">
+            <div className="flex justify-center items-top pb-4 mb-2 w-5/6 h-80 bg-[#202528] rounded-xl overflow-y-auto custom-scroll shadow-black">
               <table className="min-w-full table-auto h-10">
                 <thead >
                   <tr>

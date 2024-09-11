@@ -22,6 +22,7 @@ import Disciplinary from './Components/Disciplinary'
 import Wifi from './Components/Wifi'
 import Grievances from './Components/Grievances';
 import Miscellaneous from './Components/Miscellaneous';
+import FaceRecognition from './Pages/FaceRecognition';
 
 const App = () => (
   <BrowserRouter>
@@ -43,6 +44,7 @@ const App = () => (
       </Route>
       
         <Route path="/login" element={<LoginPage/>} />
+        <Route path="/face" element={<FaceRecognition/>}/>
       
     </Routes>
   </BrowserRouter>
