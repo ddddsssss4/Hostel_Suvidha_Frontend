@@ -31,7 +31,6 @@ const Complaints = () => {
             <div onClick={() => goToComplaint('Grievances')}>
                 <img className="w-full h-full object-cover" src={grevances} alt="Grievances Complaints" />
             </div>
-
         </div>
     </div>
   );

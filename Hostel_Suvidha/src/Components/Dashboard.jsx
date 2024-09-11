@@ -99,7 +99,7 @@ const Dashboard = () => {
             </div>
             <div className="pt-4 w-[75%] text-white text-2xl font">
               <div 
-                className="max-w-[500px] relative h-[280px] rounded-3xl bg-cover bg-center" 
+                className="max-w-[500px] relative h-60 rounded-3xl bg-cover bg-center" 
                 style={{ backgroundImage: `url(${dashboard_bg})` }}
               >
                 <div className='absolute top-5 left-5 h-20 w-20 rounded-full z-20 border-4 border-[#FF824C] overflow-hidden'>
@@ -119,10 +119,10 @@ const Dashboard = () => {
               <table className="min-w-full table-auto h-10">
                 <thead >
                   <tr>
-                    <th className="px-4 py-2 text-gray-200">Type Of Complaint</th>
-                    <th className="px-4 py-2 text-gray-200">Complaint ID</th>
-                    <th className="px-4 py-2 text-gray-200">Status</th>
-                    <th className="px-4 py-2 text-gray-200">Details</th>
+                    <th className="px-4 py-2 text-gray-200 pt-4">Type Of Complaint</th>
+                    <th className="px-4 py-2 text-gray-200 pt-4">Complaint ID</th>
+                    <th className="px-4 py-2 text-gray-200 pt-4">Status</th>
+                    <th className="px-4 py-2 text-gray-200 pt-4">Details</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -151,7 +151,7 @@ const Dashboard = () => {
           {/* Right side div */}
           <div className="w-[40%] p-4 relative z-10 pr-8 ">
             <div className="flex justify-end align- items-center gap-3">
-              <div className="text-white text-sm font-extrabold text-lg">
+              <div className="text-white font-extrabold text-lg">
                 <span className='text-[#FF824C] text-sm'>STUDENT </span>
                 <br />
                 AMAN KUMAR
@@ -166,7 +166,7 @@ const Dashboard = () => {
               <div className='pt-6 text-white text-xl font-bold mb-2 font-poppins text-right'>
                 RECENT UPDATES
               </div>
-              <div className='bg-[#202528] rounded-3xl h-[700px]'>
+              <div className='bg-[#202528] rounded-3xl h-[640px]'>
               <div className="flex flex-col space-y-4 p-4 bg-[#202528] rounded-xl max-w-md mx-auto custom-scroll">
                 {messages.map((message, index) => (
                   <div key={index} className="flex space-x-4 items-start">
