@@ -8,8 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import React from 'react';
 
 import Dashboard from './Components/Dashboard';
-import Complaints from './Components/Complaints'
-import Settings from './Components/Settings';
+import Complaints from './Components/Complaints';
 import Requests from './Components/Requests';
 import AddProduct from './Components/AddProduct';
 
@@ -32,10 +31,8 @@ const App = () => (
       <Route element={<MainLayout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/complaints" element={<Complaints/>} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/requests" element={<Requests />} />
         <Route path="/laundry" element={<Laundry />} />
-        <Route path="/add-product" element={<AddProduct />} />
         <Route path="/inOut" element={<InOut/>}/>
         <Route path="/Complaints/Electronic" element={<Electronic/>}/>
         <Route path="/Complaints/Furniture" element={<Furniture/>}/>
