@@ -119,7 +119,7 @@ const Dashboard = () => {
               <table className="min-w-full table-auto h-10">
                 <thead >
                   <tr>
-                    <th className="px-4 py-2 text-gray-200">Type Of Complaint</th>
+
                     <th className="px-4 py-2 text-gray-200">Complaint ID</th>
                     <th className="px-4 py-2 text-gray-200">Status</th>
                     <th className="px-4 py-2 text-gray-200">Details</th>
@@ -151,7 +151,7 @@ const Dashboard = () => {
           {/* Right side div */}
           <div className="w-[40%] p-4 relative z-10 pr-8 ">
             <div className="flex justify-end align- items-center gap-3">
-              <div className="text-white text-sm font-extrabold text-lg">
+              <div className="text-white text-sm font-extrabold">
                 <span className='text-[#FF824C] text-sm'>STUDENT </span>
                 <br />
                 AMAN KUMAR

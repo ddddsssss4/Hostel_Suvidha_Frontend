@@ -28,6 +28,7 @@ const MainLayout = () => {
           <NavLinkItem to="/" label="Dashboard"  className='bg-red-500 text-3xl'/>
           <NavLinkItem to="/complaints" label="Complaints" />
           <NavLinkItem to="/settings" label="Settings" />
+          <NavLinkItem to="/inOut" label= "In-Out"/>
           <NavLinkItem to="/requests" label="Requests" />
           <NavLinkItem to="/add-product" label="Add Product" />
         </ul>
