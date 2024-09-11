@@ -20,6 +20,9 @@ import WashRoom from './Components/WashRoom'
 import RoomService from './Components/RoomService'
 import Disciplinary from './Components/Disciplinary'
 import Wifi from './Components/Wifi'
+import Grievances from './Components/Grievances';
+import Miscellaneous from './Components/Miscellaneous';
+import FaceRecognition from './Pages/FaceRecognition';
 import Laundry from './Components/Laundry'
 
 const App = () => (
@@ -38,9 +41,12 @@ const App = () => (
         <Route path="/Complaints/RoomService" element={<RoomService/>}/>
         <Route path="/Complaints/Disciplinary" element={<Disciplinary/>}/>
         <Route path="/Complaints/Wifi" element={<Wifi/>}/>
+        <Route path="/Complaints/Miscellaneous" element={<Miscellaneous/>}/>
+        <Route path="/Complaints/Grievances" element={<Grievances/>}/>
       </Route>
       
         <Route path="/login" element={<LoginPage/>} />
+        <Route path="/face" element={<FaceRecognition/>}/>
       
     </Routes>
   </BrowserRouter>
