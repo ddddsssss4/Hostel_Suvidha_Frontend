@@ -64,6 +64,18 @@ const Dashboard = () => {
       "sender": "ADMIN",
       "text": "Council meet tomorrow at 8:45 PM.",
       "imageUrl": "https://www.treasurebox.co.nz/pub/media/wysiwyg/cmspage/david.png"
+    },
+    {
+      "sender": "AIT PUNE",
+      "text": "all student should be present in the CG lab.",
+      "imageUrl": "https://th.bing.com/th/id/OIP.PkrwrLwaq68CaqLPn7jBIwHaHa?rs=1&pid=ImgDetMain",
+      "isActive": true
+    },
+    {
+      "sender": "AIT PUNE",
+      "text": "all student should be present in the CG lab.",
+      "imageUrl": "https://th.bing.com/th/id/OIP.PkrwrLwaq68CaqLPn7jBIwHaHa?rs=1&pid=ImgDetMain",
+      "isActive": true
     }
   ]);
 
@@ -166,8 +178,8 @@ const Dashboard = () => {
               <div className='pt-6 text-white text-xl font-bold mb-2 font-poppins text-right'>
                 RECENT UPDATES
               </div>
-              <div className='bg-[#202528] rounded-3xl h-[640px]'>
-              <div className="flex flex-col space-y-4 p-4 bg-[#202528] rounded-xl max-w-md mx-auto custom-scroll">
+              <div className='bg-[#202528] rounded-lg h-[640px] overflow-y-auto custom-scroll'>
+              <div className="flex flex-col space-y-4 p-4 bg-[#202528] rounded-xl max-w-md mx-auto">
                 {messages.map((message, index) => (
                   <div key={index} className="flex space-x-4 items-start">
                     {/* Add relative class here */}
