@@ -19,20 +19,35 @@ const Complaints = () => {
 
   return (
     <div>
-      <h1 className="mt-24 text-white text-3xl font-extrabold pb-6">COMPLAINTS</h1>
-        <div className="grid grid-cols-4 grid-rows-2 gap-8 w-[720px] hover:cursor-pointer">
-            <div onClick={() => goToComplaint('Electronic')}><img className="w-full h-full object-cover" src={Electronic} alt="Electronic Complaints" /></div>
-            <div onClick={() => goToComplaint('Furniture')}><img className="w-full h-full object-cover" src={Furniture} alt="Furniture Complaints" /></div>
-            <div onClick={() => goToComplaint('Washroom')}><img className="w-full h-full object-cover" src={Washroom} alt="Washroom Complaints" /></div>
-            <div onClick={() => goToComplaint('RoomService')}><img className="w-full h-full object-cover" src={Service} alt="Service Complaints" /></div>
-            <div onClick={() => goToComplaint('Wifi')}><img className="w-full h-full object-cover" src={Wifi} alt="Wifi Complaints" /></div>
-            <div onClick={() => goToComplaint('Disciplinary')}><img className="w-full h-full object-cover" src={Disciplinary} alt="Disciplinary Complaints" /></div>
-            <div onClick={() => goToComplaint('Miscellaneous')}><img className="w-full h-full object-cover" src={misscnew} alt="Miscellaneous Complaints" /></div>
-            <div onClick={() => goToComplaint('Grievances')}>
-                <img className="w-full h-full object-cover" src={grevances} alt="Grievances Complaints" />
-            </div>
-        </div>
+  <h1 className="mt-24 text-white text-3xl font-extrabold pb-6">COMPLAINTS</h1>
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-8/12 hover:cursor-pointer">
+    <div onClick={() => goToComplaint('Electronic')}>
+      <img className="w-full object-cover" src={Electronic} alt="Electronic Complaints" />
     </div>
+    <div onClick={() => goToComplaint('Furniture')}>
+      <img className="w-full object-cover" src={Furniture} alt="Furniture Complaints" />
+    </div>
+    <div onClick={() => goToComplaint('Washroom')}>
+      <img className="w-full object-cover" src={Washroom} alt="Washroom Complaints" />
+    </div>
+    <div onClick={() => goToComplaint('RoomService')}>
+      <img className="w-full object-cover" src={Service} alt="Service Complaints" />
+    </div>
+    <div onClick={() => goToComplaint('Wifi')}>
+      <img className="w-full object-cover" src={Wifi} alt="Wifi Complaints" />
+    </div>
+    <div onClick={() => goToComplaint('Disciplinary')}>
+      <img className="w-full object-cover" src={Disciplinary} alt="Disciplinary Complaints" />
+    </div>
+    <div onClick={() => goToComplaint('Miscellaneous')}>
+      <img className="w-full object-cover" src={misscnew} alt="Miscellaneous Complaints" />
+    </div>
+    <div onClick={() => goToComplaint('Grievances')}>
+      <img className="w-full object-cover" src={grevances} alt="Grievances Complaints" />
+    </div>
+  </div>
+</div>
+
   );
 };
 
