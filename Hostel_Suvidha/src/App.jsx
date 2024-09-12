@@ -24,6 +24,7 @@ import Grievances from './Components/Grievances';
 import Miscellaneous from './Components/Miscellaneous';
 import FaceRecognition from './Pages/FaceRecognition';
 import Laundry from './Components/Laundry'
+import Outpassleave from './Components/Outpassleave'
 
 const App = () => (
   <BrowserRouter>
@@ -34,6 +35,7 @@ const App = () => (
         <Route path="/requests" element={<Requests />} />
         <Route path="/laundry" element={<Laundry />} />
         <Route path="/inOut" element={<InOut/>}/>
+        <Route path='/Outpassleave' element={<Outpassleave/>}/>
         <Route path="/Complaints/Electronic" element={<Electronic/>}/>
         <Route path="/Complaints/Furniture" element={<Furniture/>}/>
         <Route path="/Complaints/Washroom" element={<WashRoom/>}/>

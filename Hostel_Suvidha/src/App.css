@@ -23,4 +23,10 @@
   scrollbar-color: #6c63ff transparent;
 }
 
+.flexible-height {
+  min-height: 300px; /* Or any height you prefer */
+}
 
+.fixed-height {
+  height: 500px; /* Set to a specific height */
+}
