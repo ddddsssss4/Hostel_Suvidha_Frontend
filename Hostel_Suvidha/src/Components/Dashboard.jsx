@@ -14,7 +14,9 @@ const Dashboard = () => {
     { "type": "ELECTRONIC", "complaintID": "12357", "status": "Pending" },
     { "type": "ELECTRONIC", "complaintID": "12357", "status": "Pending" },
     { "type": "Furniture", "complaintID": "12357", "status": "Pending" },
-    { "type": "ELECTRONIC", "complaintID": "12357", "status": "Pending" }
+    { "type": "Furniture", "complaintID": "12357", "status": "Pending" },
+    { "type": "Furniture", "complaintID": "12357", "status": "Pending" },
+        { "type": "Furniture", "complaintID": "12357", "status": "Pending" },
   ]);
 
   const [messages, setMessages] = useState([
@@ -72,11 +74,11 @@ const Dashboard = () => {
           </div>
 
           <div className="text-xl font-extrabold text-white mb-4 mt-8">RECENT REQUESTS</div>
-          <div className="w-full md:w-5/6 bg-[#202528] rounded-xl overflow-x-auto shadow-black">
-            <table className="min-w-full hidden md:table text-left border-collapse">
-              <thead>
+          <div className="w-full md:w-5/6 bg-[#202528] rounded-xl overflow-x-auto shadow-black h-[300px] overflow-y-auto custom-scroll">
+            <table className="min-w-full hidden md:table text-left border-collapse overfloe-y-scroll">
+              <thead className="sticky top-0 bg-gray-800 z-10">
                 <tr>
-                  <th className="px-4 py-2 text-gray-200">Type Of Complaint</th>
+                  <th className="px-4 py-2 text-gray-200 ">Type Of Complaint</th>
                   <th className="px-4 py-2 text-gray-200">Complaint ID</th>
                   <th className="px-4 py-2 text-gray-200">Status</th>
                   <th className="px-4 py-2 text-gray-200">Details</th>
@@ -138,8 +140,8 @@ const Dashboard = () => {
             <div className='pt-6 text-white text-xl font-bold mb-2 font-poppins text-right'>
               RECENT UPDATES
             </div>
-            <div className='bg-[#202528] rounded-lg h-[400px] md:h-[640px] overflow-y-auto'>
-              <div className="flex flex-col space-y-4 p-4 bg-[#202528] rounded-xl max-w-md mx-auto">
+            <div className='bg-[#202528] rounded-lg h-[400px] md:h-[600px] overflow-y-auto'>
+              <div className="flex flex-col space-y-4 p-4 bg-[#202528] rounded-xl max-w-md mx-aut0o">
                 {messages.map((message, index) => (
                   <div key={index} className="flex space-x-4 items-start">
                     <div className="relative">
