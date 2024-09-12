@@ -8,11 +8,12 @@ const FormValue1 = ({ backgroundImage }) => {
   const handleSubmit = async(values , {setSubmitting}) => {
     console.log('Form data', values);
     try{
-      const response = axios.post(`/api/complaints/${type}`)
-      console.log()
+      const response = await axios.post(`http://localhost:8000/api/v1/students/newComplaint`,values)
+      console.log(response)
     }catch(error){
       console.log(error)
-    }finally{
+    }
+    finally{
       setSubmitting(false)
     }
   };
