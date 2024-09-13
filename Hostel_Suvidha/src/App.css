@@ -1,3 +1,6 @@
+.body{
+  background-color:#181A1E
+}
 /* Add custom styles for scrollbar */
 .custom-scroll::-webkit-scrollbar {
   width: 10px;
@@ -20,4 +23,10 @@
   scrollbar-color: #6c63ff transparent;
 }
 
+.flexible-height {
+  min-height: 300px; /* Or any height you prefer */
+}
 
+.fixed-height {
+  height: 500px; /* Set to a specific height */
+}

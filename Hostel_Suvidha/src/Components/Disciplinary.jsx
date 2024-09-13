@@ -11,11 +11,11 @@ import Disciplinary2 from '../assets/Disciplinary_logo.png'
         DISCIPLINARY
       </h1>
       <div className="h-[40px] w-[40px]">
-        
+        <img src={Disciplinary2} alt="Displinary" />
       </div>
     </div>
     <div className=''>
-    <FormValue1 backgroundImage={bg} />
+      <FormValue1 backgroundImage={bg} />
     </div>
   </div>
   )
