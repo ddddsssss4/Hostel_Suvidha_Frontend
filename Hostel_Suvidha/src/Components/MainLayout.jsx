@@ -28,7 +28,7 @@ const MainLayout = () => {
           <NavLinkItem to="/laundry" label="Laundry"/>
           <NavLinkItem to="/complaints" label="Complaints" />
           <NavLinkItem to="/inOut" label="In-Out"/>
-          {/* <NavLinkItem to="/requests" label="Requests" /> */}
+          <NavLinkItem to="/requests" label="Requests" />
           <NavLinkItem to="/Outpassleave" label="Outpass &Leave"/>
         </ul>
         <div className='absolute bottom-6 left-0 w-full'>
