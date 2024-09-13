@@ -1,3 +1,32 @@
 .body{
   background-color:#181A1E
 }
+/* Add custom styles for scrollbar */
+.custom-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #202528;
+  border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: #6c63ff; 
+  border-radius: 10px;
+  border: 2px solid #202528; 
+}
+
+/* For Firefox */
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #6c63ff transparent;
+}
+
+.flexible-height {
+  min-height: 300px; /* Or any height you prefer */
+}
+
+.fixed-height {
+  height: 500px; /* Set to a specific height */
+}

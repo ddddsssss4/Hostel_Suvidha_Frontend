@@ -8,8 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import React from 'react';
 
 import Dashboard from './Components/Dashboard';
-import Complaints from './Components/Complaints'
-import Settings from './Components/Settings';
+import Complaints from './Components/Complaints';
 import Requests from './Components/Requests';
 import AddProduct from './Components/AddProduct';
 
@@ -20,6 +19,12 @@ import WashRoom from './Components/WashRoom'
 import RoomService from './Components/RoomService'
 import Disciplinary from './Components/Disciplinary'
 import Wifi from './Components/Wifi'
+import InOut from './Components/InOut'
+import Grievances from './Components/Grievances';
+import Miscellaneous from './Components/Miscellaneous';
+import FaceRecognition from './Pages/FaceRecognition';
+import Laundry from './Components/Laundry'
+import Outpassleave from './Components/Outpassleave'
 
 const App = () => (
   <BrowserRouter>
@@ -27,18 +32,21 @@ const App = () => (
       <Route element={<MainLayout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/complaints" element={<Complaints/>} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/requests" element={<Requests />} />
-        <Route path="/add-product" element={<AddProduct />} />
-        <Route path="/Complaints/:type" element={<Electronic/>}/>
-        <Route path="/Complaints/:type" element={<Furniture/>}/>
-        <Route path="/Complaints/:type" element={<WashRoom/>}/>
-        <Route path="/Complaints/:type" element={<RoomService/>}/>
-        <Route path="/Complaints/:type" element={<Disciplinary/>}/>
-        <Route path="/Complaints/:type" element={<Wifi/>}/>
+        <Route path="/laundry" element={<Laundry />} />
+        <Route path="/inOut" element={<InOut/>}/>
+        <Route path='/Outpassleave' element={<Outpassleave/>}/>
+        <Route path="/Complaints/Electronic" element={<Electronic/>}/>
+        <Route path="/Complaints/Furniture" element={<Furniture/>}/>
+        <Route path="/Complaints/Washroom" element={<WashRoom/>}/>
+        <Route path="/Complaints/RoomService" element={<RoomService/>}/>
+        <Route path="/Complaints/Disciplinary" element={<Disciplinary/>}/>
+        <Route path="/Complaints/Wifi" element={<Wifi/>}/>
+        <Route path="/Complaints/Miscellaneous" element={<Miscellaneous/>}/>
+        <Route path="/Complaints/Grievances" element={<Grievances/>}/>
       </Route>
-      
         <Route path="/login" element={<LoginPage/>} />
+        <Route path="/face" element={<FaceRecognition/>}/>
       
     </Routes>
   </BrowserRouter>

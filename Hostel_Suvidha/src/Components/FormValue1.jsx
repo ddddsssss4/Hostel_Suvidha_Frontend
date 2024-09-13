@@ -1,24 +1,26 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useParams } from 'react-router-dom';
+import inp from '../assets/input.png';  
 import axios from 'axios';
 const FormValue1 = ({ backgroundImage }) => {
   const { type } = useParams();
   const handleSubmit = async(values , {setSubmitting}) => {
     console.log('Form data', values);
     try{
-      const response = axios.post(`/api/complaints/${type}`)
-      console.log()
+      const response = await axios.post(`http://localhost:8000/api/v1/students/newComplaint`,values)
+      console.log(response)
     }catch(error){
       console.log(error)
-    }finally{
+    }
+    finally{
       setSubmitting(false)
     }
   };
 
   return (
-    <div className="text-white py-6 ">
-      <div className="relative mt-8 rounded-md">
+    <div className="text-white rounded-3xl py-6 w-[65vw]">
+      <div className="relative mt-2 overflow-hidden rounded-3xl">
         <img src={backgroundImage} className="w-full h-full object-cover rounded-md" alt="Background" />
         
         <div className="absolute inset-0 p-6">
@@ -43,7 +45,7 @@ const FormValue1 = ({ backgroundImage }) => {
                       <Field
                         name="name"
                         type="text"
-                        className="mt-1 bg-black block w-[40%]  rounded-sm p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white placeholder-gray-400"
+                        className="mt-1 bg-[#171A1C] block w-[40%]  rounded-md p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white placeholder-gray-400"
                         placeholder="AMAN KUMAR"
                       />
                     </div>
@@ -52,7 +54,7 @@ const FormValue1 = ({ backgroundImage }) => {
                       <Field
                         name="complaintId"
                         type="text"
-                        className="mt-1 block w-[40%] border-none rounded-sm shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white bg-black p-2 placeholder-gray-400"
+                        className="mt-1 block w-[40%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white bg-[#171A1C] p-2 placeholder-gray-400"
                         placeholder="12473"
                       />
                     </div>
@@ -63,7 +65,7 @@ const FormValue1 = ({ backgroundImage }) => {
                       <Field
                         name="roomNumber"
                         type="text"
-                        className="mt-1 block w-[30%] border-none rounded-sm p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-black text-white placeholder-gray-400"
+                        className="mt-1 block w-[30%] border-none rounded-md p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-[#171A1C] text-white placeholder-gray-400"
                         placeholder="306 A"
                       />
                     </div>
@@ -72,38 +74,48 @@ const FormValue1 = ({ backgroundImage }) => {
                       <Field
                         name="hostel"
                         type="text"
-                        className="mt-1 block w-[20%] border-none rounded-sm shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white placeholder-gray-400 bg-black p-2"
+                        className="mt-1 block w-[20%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white placeholder-gray-400 bg-[#171A1C] p-2"
                         placeholder="OBH"
                       />
                     </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-white">DESCRIPTION OF THE COMPLIANT</label>
-                    <Field
-                      name="description"
-                      as="textarea"
-                      className="mt-1 block w-[60%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white bg-black p-2 placeholder-gray-400 h-24"
-                      placeholder="Description up to 20 to 30 words..."
-                    />
-                  </div>
-                  <div className="flex items-center">
-                    <label className="block text-sm font-medium text-white">ADD IMAGE</label>
-                    <div className="ml-4 w-64 h-12 bg-gray-700 rounded-lg flex items-center justify-center">
-                      <input
-                        name="image"
-                        type="file"
-                        className="px-2"
-                        onChange={(event) => {
-                          setFieldValue("image", event.currentTarget.files[0]);
-                        }}
+                  <h2 className="block text-sm font-medium text-white">DESCRIPTION OF THE COMPLIANT</h2>
+                  <div className="mb-4 w-[70%] h-52 flex bg-[#171A1C] rounded-md shadow-sm">
+                    <div className="w-full rounded-md">
+                      <Field
+                        name="description"
+                        as="textarea"
+                        className="block w-full resize-none rounded-md focus:outline-none sm:text-sm text-white bg-[#171A1C] p-4 placeholder-gray-500 h-full max-h-full"
+                        placeholder="Description up to 20 to 30 words..."
                       />
-                      <span className="text-gray-500 px-2">IMAGE</span>
+                    </div>
+
+                    <div className="mr-4 mt-2 flex flex-col items-center">
+                      <label className="block text-sm font-medium text-white mb-1">
+                        ADD IMAGE
+                      </label>
+                      <div className="w-32 h-36 relative bg-[#38393A] rounded-md flex cursor-pointer">
+                      <label className=" absolute block left-11 mt-1 text-sm font-medium text-white mb-1">
+                      IMAGE
+                      </label>
+                        <img className='absolute top-9 left-7' src={inp} alt="image" />
+                          <input
+                            name="image"
+                            type="file"
+                            className="opacity-0 w-32 h-36 absolute top-0 left-0"
+                            onChange={(event) => {
+                              setFieldValue("image", event.currentTarget.files[0]);
+                            }}
+                          />
+                      </div>
                     </div>
                   </div>
+
+
+
                   <button
                     type="submit"
-                    className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
-                  >
+                    className=" bg-indigo-600 text-white py-2 px-10 rounded-md hover:bg-indigo-700">
                     Submit
                   </button>
                 </Form>
