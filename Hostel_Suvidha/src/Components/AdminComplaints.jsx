@@ -62,6 +62,8 @@ const AdminComplaints = () => {
                     <th className="py-3 px-6">Details</th>
                     </tr>
                 </thead>
+                <tbody>
+
                 {complaintsData.map((complaint, index) => (
                     selectedCategory === 'ALL' || complaint.type.toUpperCase() === selectedCategory.toUpperCase() ? (
                         <tr key={index} className="text-sm font-semibold text-gray-300 border-t border-gray-700">
@@ -84,6 +86,7 @@ const AdminComplaints = () => {
                     </tr>
                     ) : null
                 ))}
+                </tbody>
                 </table>
             </div>
         </div>
