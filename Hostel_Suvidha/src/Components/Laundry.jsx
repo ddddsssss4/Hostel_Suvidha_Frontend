@@ -5,6 +5,8 @@ import { Formik, Form, Field } from 'formik';
 const Laundry = () => {
 
   const [clothes,useclothes]=useState(0);
+  const [date,useDate]=useState(Date);
+
   const handleSubmit = async(values , {setSubmitting}) => {
     console.log('Form data', values);
     try{
@@ -150,7 +152,7 @@ const Laundry = () => {
                     <div className="head font-bold text-xl flex justify-between">
                       <div className="no">1.</div>
                       <div className="">{clothes} Clothes </div>
-                      <div className="">15/07/24</div>
+                      <div className="">{date.split(" ").slice(1,4).join(",")}</div>
                     </div>
                     <div className="type mt-4 gap-2 flex flex-wrap">
                       <div className="tiles h-10 py-1 px-2 gap-2 rounded-2xl flex bg-[#202528]">

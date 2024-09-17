@@ -24,21 +24,15 @@ const MainLayout = () => {
             </h1>
           </NavLink>
         </div>
-        <ul className='pt-40 text-white font-poppins text-lg '>
+        <ul className='pt-20 overflow-y-scroll text-white font-poppins text-lg '>
           <NavLinkItem to="/" label="Dashboard"/>
           <NavLinkItem to="/laundry" label="Laundry"/>
           <NavLinkItem to="/complaints" label="Complaints" />
-          <NavLinkItem to="/settings" label="Settings" />
           <NavLinkItem to="/inOut" label= "In-Out"/>
-          <NavLinkItem to="/requests" label="Requests" />
-          <NavLinkItem to="/add-product" label="Add Product" />
-        </ul>
-        <div className='absolute bottom-6 left-0 w-full'>
           <NavLink to="/login" className="block py-4 px-6 hover:bg-[#0E1012] hover:border-l-4 hover:border-[#7380EC] text-[#7D8DA1] font-poppins text-xl font-bold">
             Logout
           </NavLink>
-        
-        </div>
+        </ul>
       </nav>
       <div className="w-[77%] h-screen overflow-y-auto  relative">
         <div className="relative z-10">
