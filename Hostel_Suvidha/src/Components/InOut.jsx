@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import bg from '../assets/bgelement.png';
 import '../App.css';
+import clock from '../assets/clock.svg';
 const InOut = () => {
     const check =(value)=>{
         if(value==null){
@@ -53,8 +54,8 @@ const InOut = () => {
         alt="Background Element" 
         className="absolute inset-0 w-full h-full object-cover z-[-1]" 
       />
-        <div className=" text-white h-screen w-full flex flex-col items-center py-6">
-            <div className="flex items-center justify-items-start w-full">
+        <div className=" text-white h-screen w-full flex flex-col py-6">
+            <div className="flex items-center w-full">
                 <div className="text-2xl p-5 font-bold">IN & OUT</div>
                 <div className="flex items-center bg-[#202528] gap-2 p-3 rounded-lg">
                 <span className="font-semibold">Status :</span>
@@ -66,24 +67,7 @@ const InOut = () => {
             </div>
 
             <div className="mt-8 flex gap-8 w-full">
-                {/* <div className="flex-1 bg-[#202528] p-6 rounded-xl">
-                    <div className="grid grid-cols-3 font-semibold text-lg mb-4">
-                        <div className="flex justify-center items-center"><span>Date</span></div>
-                        <div className="flex justify-center items-center"><span>Out Time</span></div>
-                        <div className="flex justify-center items-center"><span>In Time</span></div>
-                    </div>
-                    {inOutLogs.map((val)=>(
-                        <div>
-                        <div className="grid grid-cols-3 justify-center items-center text-lg">
-                            <div className="flex justify-center items-center"><span>{val.date}</span></div>
-                            <div className="flex justify-center items-center"><span>{val.outTime}</span></div>
-                            <div className="flex justify-center items-center"><span>{check(val.inTime)?"⏰":val.inTime}</span></div>
-                        </div>
-                        <div className="bg-[#1A1818] h-1"></div>
-                        </div>
-                    ))}
-                </div> */}
-               <div className="flex justify-center items-top pb-4 mb-2 w-[50%] h-80 bg-[#202528] rounded-3xl overflow-y-auto custom-scroll ml-4 shadow-black border-b-8 border-[#7380EC]">
+               <div className="flex justify-center items-top pb-4 mb-2 w-[50%] h-80 bg-[#202528] rounded-md overflow-y-auto custom-scroll ml-4 shadow-black border-t-8 border-[#7380EC]">
                     <table className="min-w-full table-auto h-10">
                         <thead>
                         <tr>
@@ -97,15 +81,17 @@ const InOut = () => {
                             <tr key={i} className="border-b border-gray-700">
                             <td className="px-4 py-3 pl-16 text-white text-left">{val.date}</td>
                             <td className="px-4 py-3 pl-16 text-white text-left">{val.outTime}</td>
-                            <td className="px-4 py-3 pl-16 text-white text-left">{check(val.inTime) ? "⏰" : val.inTime}</td>
+                            <td className="px-4 py-3 pl-16 text-white text-left">{check(val.inTime) ? (
+                            <img src={clock} alt="Clock" className="inline w-6 h-6 ml-2" />
+                            ) : val.inTime}</td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
                 </div>
-                <div className="flex ml-5 bg-[#202528] flex-col p-6 rounded-3xl w-[40%] border-b-8 border-[#7380EC]">
-    <h2 className="text-xl font-semibold mb-4">OUTPASS / LEAVES</h2>
-    <form className="space-y-4">
+                {/* <div className="flex ml-5 bg-[#202528] flex-col p-6 rounded-3xl w-[40%] border-b-8 border-[#7380EC]"> */}
+    {/* <h2 className="text-xl font-semibold mb-4">OUTPASS / LEAVES</h2> */}
+    {/* <form className="space-y-4">
         <div className="flex justify-between">
             <span>1. Outpass</span>
         </div>
@@ -131,22 +117,21 @@ const InOut = () => {
         >
             Submit
         </button>
-    </form>
+    </form> */}
     
     {/* Status section */}
-    <div className="mt-6">
+    {/* <div className="mt-6">
         <h3 className="text-lg font-semibold mb-2">Status</h3>
         <div className="bg-gray-700 p-4 rounded-md text-white">
             <div className="flex justify-between items-center">
-                <span className="font-medium">Time: 5:00 PM</span> {/* Dynamic time */}
-                {/* Dynamic status color */}
+                <span className="font-medium">Time: 5:00 PM</span> 
                 <span className={`font-bold text-lg ${status === 'Approved' ? 'text-green-500' : 'text-red-500'}`}>
                     {status}
                 </span>
             </div>
         </div>
-    </div>
-</div>
+    </div> */}
+{/* </div> */}
 
 
 
