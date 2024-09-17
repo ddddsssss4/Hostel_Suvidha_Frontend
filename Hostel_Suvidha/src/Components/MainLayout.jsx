@@ -23,17 +23,6 @@ const MainLayout = () => {
             </h1>
           </NavLink>
         </div>
-<<<<<<< HEAD
-        <ul className='pt-20 overflow-y-scroll text-white font-poppins text-lg '>
-          <NavLinkItem to="/" label="Dashboard"/>
-          <NavLinkItem to="/laundry" label="Laundry"/>
-          <NavLinkItem to="/complaints" label="Complaints" />
-          <NavLinkItem to="/inOut" label= "In-Out"/>
-          <NavLink to="/login" className="block py-4 px-6 hover:bg-[#0E1012] hover:border-l-4 hover:border-[#7380EC] text-[#7D8DA1] font-poppins text-xl font-bold">
-            Logout
-          </NavLink>
-        </ul>
-=======
         <ul className='pt-32 text-white font-poppins text-lg '>
           <NavLinkItem to="/" label="Dashboard"/>
           <NavLinkItem to="/laundry" label="Laundry"/>
@@ -47,7 +36,6 @@ const MainLayout = () => {
             Logout
           </NavLink>
         </div>
->>>>>>> f3ad0f53c6eedfdc3e3a1a5df4ec62c9350fee62
       </nav>
 
       {/* Content */}
