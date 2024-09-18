@@ -4,13 +4,12 @@ import '../App.css';
 
 function Outpassleave() {
     const [status, setStatus] = useState("Approved");
-    const [formType, setFormType] = useState("outpass"); // Dropdown form selection
-    const [toggleView, setToggleView] = useState("outpass"); // Controls which details (outpass/leave) to display
+    const [formType, setFormType] = useState("outpass");
+    const [toggleView, setToggleView] = useState("outpass");
     const [outpassData, setOutpassData] = useState([]);
     const [leaveData, setLeaveData] = useState([]);
     const [formInput, setFormInput] = useState({ time: '', reason: '' });
 
-    // Simulate fetching data from an API for Outpass and Leave
     useEffect(() => {
         const fetchOutpassData = async () => {
             setOutpassData([
@@ -31,7 +30,6 @@ function Outpassleave() {
         fetchLeaveData();
     }, []);
 
-    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         if (formType === 'outpass') {
@@ -44,15 +42,15 @@ function Outpassleave() {
 
     return (
         <div className="relative min-h-screen">
-            {/* Ensure background image covers the full screen */}
+            {/* Background image */}
             <img
                 src={bg}
                 alt="Background Element"
                 className="absolute inset-0 w-full h-full object-cover z-[-1]"
             />
-            <div className="p-8 pt-28 gap-8 w-full relative flex flex-row justify-between">
+            <div className="p-8 pt-28 gap-8 w-full relative flex flex-col md:flex-row justify-between">
                 {/* Form Section */}
-                <div className="bg-[#202528] text-white flex-col p-6 rounded-3xl w-[45%] border-b-8 border-[#7380EC] h-[440px] flexible-height">
+                <div className="bg-[#202528] text-white flex-col p-6 rounded-3xl w-full md:w-[45%] border-b-8 border-[#7380EC] h-auto mb-8 md:mb-0">
                     <h2 className="text-xl font-semibold mb-4">OUTPASS / LEAVES FORM</h2>
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         {/* Dropdown for selecting outpass or leave */}
@@ -74,7 +72,7 @@ function Outpassleave() {
                                 {formType === 'outpass' ? 'Time' : 'Date'}:
                             </label>
                             <input
-                                type={formType === 'outpass' ? "text" : "date"} // Change to date input for Leave
+                                type={formType === 'outpass' ? "text" : "date"}
                                 className="bg-gray-700 border-none text-white p-2 rounded-md w-full"
                                 placeholder={formType === 'outpass' ? "Enter time" : "Enter date"}
                                 value={formInput.time}
@@ -105,25 +103,25 @@ function Outpassleave() {
                 </div>
 
                 {/* Display Section */}
-                <div className="flex pt-0 flex-col w-[50%] custom-scroll bg-[#202528] mr-6 text-white overflow-y-scroll p-6 rounded-3xl border-b-8 h-[600px]  border-[#7380EC] flexible-height">
+                <div className="flex pt-0 flex-col w-full md:w-[50%] custom-scroll bg-[#202528] text-white overflow-y-scroll p-6 rounded-3xl border-b-8 border-[#7380EC] h-[600px]">
                     {/* Toggle Button Section */}
-                    <div className='sticky top-0 pt-8 bg-[#202528] z-10'>
+                    <div className="sticky top-0 bg-[#202528] z-10">
                         <h2 className="text-xl font-semibold mb-4">OUTPASS / LEAVES DETAILS</h2>
-                        <div className="flex space-x-4 mb-4">
+                        <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 mb-4">
                             <button
                                 onClick={() => setToggleView('outpass')}
-                                className={`p-2 w-1/2 ${toggleView === 'outpass' ? 'bg-[#7380EC]' : 'bg-gray-700'} rounded-md text-white`}>
+                                className={`p-2 w-full sm:w-1/2 ${toggleView === 'outpass' ? 'bg-[#7380EC]' : 'bg-gray-700'} rounded-md text-white`}>
                                 Outpass
                             </button>
                             <button
                                 onClick={() => setToggleView('leave')}
-                                className={`p-2 w-1/2 ${toggleView === 'leave' ? 'bg-[#7380EC]' : 'bg-gray-700'} rounded-md text-white`}>
+                                className={`p-2 w-full sm:w-1/2 ${toggleView === 'leave' ? 'bg-[#7380EC]' : 'bg-gray-700'} rounded-md text-white`}>
                                 Leave
                             </button>
                         </div>
                     </div>
 
-                    {/* Toggle Content based on selected view */}
+                    {/* Toggle Content */}
                     {toggleView === 'outpass' && (
                         <div>
                             <h3 className="text-lg font-semibold mb-2">Outpass Details</h3>
