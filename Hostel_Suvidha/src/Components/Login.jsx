@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const Login = () => {
   // State object for form inputs
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     regNumber: '',
     password: ''
@@ -14,15 +15,14 @@ const Login = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/students/login', {
-        
+      const response = await axios.post(`${backendUrl}/students/login`, {
           'regNumber': formData.regNumber,
           'password': formData.password
-          
-      
-      });
+      },{ withCredentials: true });
       console.log('Response:', response.data);
-      navigate("/");
+      console.log('Response token:', response.data.data.accessToken);
+      localStorage.setItem('accessToken', response.data.data.accessToken);
+      navigate("/dashboard");
     } catch (error) {
       console.error('There was an error!', error);
     }

@@ -1,14 +1,29 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
+import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import inp from '../assets/input.png';  
 import axios from 'axios';
 const FormValue1 = ({ backgroundImage }) => {
-  const { type } = useParams();
+  const token = localStorage.getItem("accessToken");
+  const type = useLocation().pathname.split('/')[2];
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const handleSubmit = async(values , {setSubmitting}) => {
     console.log('Form data', values);
     try{
-      const response = await axios.post(`http://localhost:8000/api/v1/students/newComplaint`,values)
+      const response = await axios.post(`${backendUrl}/students/newComplaint`,
+        {
+          "title":values.complaintId,
+          "description":values.description,
+          "complaintType":type
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      console.log("sumbitted!!")
       console.log(response)
     }catch(error){
       console.log(error)

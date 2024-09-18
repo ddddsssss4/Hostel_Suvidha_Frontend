@@ -1,11 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import bgelm from "../assets/bgelement.png";
 import { Formik, Form, Field } from "formik";
 
 const Laundry = () => {
+  const token = localStorage.getItem("accessToken");
   const [clothes, setClothes] = useState(0);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [previousClothes, setPreviousClothes] = useState([]);
+  const [update , setUpdate]=useState(false);
+
+  // Fetch previous laundry requests on component mount
+  useEffect(() => {
+    console.log("Stored token:", token);
+    const fetchPreviousClothes = async () => {
+      try {
+        const response = await axios.get(
+          `${backendUrl}/students/getLaundryRequests`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("Fetched API Response:", response.data.data);
+        // Adjust the code to set the correct array of laundry entries
+        setPreviousClothes(
+          Array.isArray(response.data.data) ? response.data.data : []
+        );
+      } catch (error) {
+        console.error("Error fetching previous clothes:", error);
+        setPreviousClothes([]); // Set an empty array in case of error
+      }
+    };
+
+    fetchPreviousClothes();
+  }, [backendUrl, token,update]);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     console.log("Form data", values);
@@ -29,29 +59,33 @@ const Laundry = () => {
       status: "PENDING",
       items: values,
     };
-    setPreviousClothes([...previousClothes, newEntry]);
+    setPreviousClothes((prev) => [...prev, newEntry]);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/students/laundry",
+        `${backendUrl}/students/laundry`,
         {
           tShirts: values["t-shirts"],
-          lower: values.lower,
+          lowers: values.lower,
           shirts: values.shirts,
-          bedsheet: values.bedsheet,
-          pillowCover: values["pillow cover"],
+          bedsheets: values.bedsheet,
+          pillowCovers: values["pillow cover"],
           shorts: values.shorts,
           pants: values.pants,
-          towel: values.towel,
-          date: values.date,
+          towels: values.towel,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
-
-      console.log("API Response:", response.data);
+      console.log("API Response:", response);
     } catch (error) {
       console.log("API Error:", error);
     } finally {
       setSubmitting(false);
+      setUpdate(!update);
     }
   };
 
@@ -75,7 +109,7 @@ const Laundry = () => {
           LAUNDRY
         </h1>
         <div className="flex lg:w-[75vw] flex-col lg:flex-row gap-8 mb-4">
-          <div className="p-6 border-t-8 border-[#7380EC] bg-[#202528] lg:w-2/3 rounded-md space-y-6">
+          <div className="p-6 border-t-8 border-[#7380EC] bg-[#202528] lg:w-2/3 rounded-md h-[70vh]">
             <Formik
               initialValues={{
                 "t-shirts": 0,
@@ -139,7 +173,7 @@ const Laundry = () => {
                   </div>
                   <button
                     type="submit"
-                    className="bg-indigo-600 text-white py-2 px-10 mx-auto block rounded-xl hover:bg-indigo-700"
+                    className=" bg-indigo-600 text-white py-2 px-10 mx-auto block rounded-xl hover:bg-indigo-700"
                   >
                     Submit
                   </button>
@@ -147,77 +181,58 @@ const Laundry = () => {
               )}
             </Formik>
           </div>
-          <div className="p-6  bg-[#202528] border-t-8 border-[#7380EC] lg:w-1/3 rounded-md space-y-6">
+          <div className="p-6 bg-[#202528] border-t-8 border-[#7380EC] lg:w-1/3 rounded-md h-[70vh] overflow-y-scroll">
             <h1 className="text-xl">Previous Clothes</h1>
-            {/* Demo card */}
-            <div className="card p-4 rounded-md bg-[#171A1C] flex flex-col">
-              <div className="head font-bold text-xl flex justify-between">
-                <div className="no">1.</div>
-                <div>3 Clothes</div>
-                <div>15/07/24</div>
-              </div>
-              <div className="type mt-4 gap-2 flex flex-wrap">
-                <div className="tiles h-10 py-1 px-2 gap-2 rounded-2xl flex bg-[#202528]">
-                  T-Shirts
-                  <div className="count p-1 w-8 h-8 text-center rounded-[40%] bg-[#7380EC]">
-                    3
-                  </div>
-                </div>
-                <div className="tiles h-10 py-1 px-2 gap-2 rounded-2xl flex bg-[#202528]">
-                  Lower
-                  <div className="count p-1 w-8 h-8 text-center rounded-[40%] bg-[#7380EC]">
-                    2
-                  </div>
-                </div>
-                <div className="tiles h-10 py-1 px-2 gap-2 rounded-2xl flex bg-[#202528]">
-                  Bedsheets
-                  <div className="count p-1 w-8 h-8 text-center rounded-[40%] bg-[#7380EC]">
-                    1
-                  </div>
-                </div>
-              </div>
-              <div className="status flex justify-between mt-2 items-center">
-                <h2 className="font-bold text-md">STATUS :</h2>
-                <h2 className="text-yellow-400 font-bold text-md">PENDING</h2>
-              </div>
-            </div>
             {/*Render previous clothes */}
             <div className="flex flex-col gap-4">
-              {previousClothes.map((entry, index) => (
-                <div
-                  key={index}
-                  className="card p-4 rounded-md bg-[#171A1C] flex flex-col"
-                >
-                  <div className="head font-bold text-xl flex justify-between">
-                    <div className="no">{index + 1}.</div>
-                    <div>{entry.clothes} Clothes</div>
-                    <div>{entry.date}</div>
-                  </div>
-                  <div className="type mt-4 gap-2 flex flex-wrap">
-                    {Object.entries(entry.items).map(
-                      ([key, value]) =>
-                        value > 0 &&
-                        key !== "date" && (
-                          <div
-                            key={key}
-                            className="tiles h-10 py-1 px-2 gap-2 rounded-2xl flex bg-[#202528]"
-                          >
-                            {key.charAt(0).toUpperCase() + key.slice(1)}
-                            <div className="count p-1 w-8 h-8 text-center rounded-[40%] bg-[#7380EC]">
-                              {value}
+              {Array.isArray(previousClothes) && previousClothes.length > 0 ? (
+                previousClothes.map((entry, index) => (
+                  <div
+                    key={index}
+                    className="card p-4 rounded-md bg-[#171A1C] flex flex-col"
+                  >
+                    <div className="head font-bold text-xl flex justify-between">
+                      <div className="no">{index + 1}.</div>
+                      {/* Update to access totalClothes or whatever property holds the total */}
+                      <div>{entry.totalClothes || entry.clothes} Clothes</div>
+                      {/* Make sure date is properly accessed and formatted */}
+                      <div>
+                        {entry.createdAt
+                          ?.split("T")[0]
+                          .split("-")
+                          .reverse()
+                          .join("/")}
+                      </div>
+                    </div>
+                    <div className="type mt-4 gap-2 flex flex-wrap">
+                      {/* Make sure `entry.clothes` holds the correct object to map over */}
+                      {Object.entries(entry.clothes || {}).map(
+                        ([key, value]) =>
+                          value > 0 && (
+                            <div
+                              key={key}
+                              className="tiles h-10 py-1 px-2 gap-2 rounded-2xl flex bg-[#202528]"
+                            >
+                              {key.charAt(0).toUpperCase() + key.slice(1)}
+                              <div className="count p-1 w-8 h-8 text-center rounded-[40%] bg-[#7380EC]">
+                                {value}
+                              </div>
                             </div>
-                          </div>
-                        )
-                    )}
+                          )
+                      )}
+                    </div>
+
+                    <div className="status flex justify-between mt-2 items-center">
+                      <h2 className="font-bold text-md">STATUS : </h2>
+                      <h2 className="text-yellow-400 font-bold text-md">
+                        {entry.status || "PENDING"}
+                      </h2>
+                    </div>
                   </div>
-                  <div className="status flex justify-between mt-2 items-center">
-                    <h2 className="font-bold text-md">STATUS : </h2>
-                    <h2 className="text-yellow-400 font-bold text-md">
-                      PENDING
-                    </h2>
-                  </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <p>No previous clothes found</p>
+              )}
             </div>
           </div>
         </div>

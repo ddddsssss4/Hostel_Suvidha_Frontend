@@ -33,7 +33,10 @@ const App = () => (
     <Routes>
       <Route element={<MainLayout />}>
         {/* Student Routes */}
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* <Route path="/" element={<Dashboard />} /> */}
         <Route path="/complaints" element={<Complaints />} />
         <Route path="/requests" element={<Requests />} />
         <Route path="/laundry" element={<Laundry />} />
