@@ -21,19 +21,21 @@ import Miscellaneous from "./Components/Miscellaneous";
 import FaceRecognition from "./Pages/FaceRecognition";
 import Laundry from "./Components/Laundry";
 import Outpassleave from "./Components/Outpassleave";
+import RegisterStudent from "./Components/RegisterStudent";
 
 //Admin Pages
 
 import AdminDashboard from "./Components/AdminDashboard";
 import AdminLayout from "./Components/AdminLayout";
 import AdminComplaints from "./Components/AdminComplaints";
+import AdminGateEntries from "./Components/AdminGateEntries";
 
 const App = () => (
   <BrowserRouter>
     <Routes>
+      <Route path="/" element={<LoginPage />} />
       <Route element={<MainLayout />}>
         {/* Student Routes */}
-        <Route path="/" element={<LoginPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
 
         {/* <Route path="/" element={<Dashboard />} /> */}
@@ -53,12 +55,14 @@ const App = () => (
       </Route>
 
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterStudent />} />
       <Route path="/face" element={<FaceRecognition />} />
 
       {/* Admin Routes */}
       <Route element={<AdminLayout />}>
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/complaints" element={<AdminComplaints/>} />
+        <Route path="/admin/inOut" element={<AdminGateEntries/>} />
       </Route>
 
     </Routes>

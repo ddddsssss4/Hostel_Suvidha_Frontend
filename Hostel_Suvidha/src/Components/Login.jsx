@@ -3,17 +3,14 @@ import loginbg from '../assets/loginbg.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const Login = () => {
-  // State object for form inputs
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     regNumber: '',
     password: ''
   });
   const navigate=useNavigate();
-  // Handler for form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
+    e.preventDefault(); 
     try {
       const response = await axios.post(`${backendUrl}/students/login`, {
           'regNumber': formData.regNumber,
@@ -22,14 +19,13 @@ const Login = () => {
       console.log('Response:', response.data);
       console.log('Response token:', response.data.data.accessToken);
       localStorage.setItem('accessToken', response.data.data.accessToken);
+      localStorage.setItem('regNumber', response.data.data.student.regNumber);
       navigate("/dashboard");
     } catch (error) {
       console.error('There was an error!', error);
     }
   };
 
-
-  // Handler for input change
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -66,9 +62,10 @@ const Login = () => {
             />
             <div className='font-poppins text-right mb-4 text-white'>Forgot Password?</div>
             <button type='submit' onClick={handleSubmit}  className='font-poppins w-full p-2 bg-white text-black rounded'>LOGIN</button>
+            <button className='font-poppins w-full p-2 bg-gray-600 text-black rounded mt-4' onClick={() => navigate('/register')}>Register</button>
           </div>
         </form>
-      </div>
+        </div>
     </div>
   );
 }
