@@ -57,9 +57,10 @@ const Requests = () => {
       <h1 className="font-extrabold text-3xl pl-4 text-center sm:text-left text-white">
         REQUESTS
       </h1>
-      <div className="flex flex-wrap gap-14 mt-6">
-        <div className="w-[40%] h-full">
-          <div className="flex flex-col items-start pb-4 mb-2 w-full h-60 bg-[#202528] rounded-md overflow-y-auto custom-scroll ml-4 shadow-lg border-t-8 border-[#7380EC]">
+      <div className="flex flex-col lg:flex-row flex-wrap gap-14 mt-6">
+        {/* Room Service Request Form */}
+        <div className="w-full lg:w-[40%] h-full">
+          <div className="flex flex-col items-start pb-4 mb-2 w-full h-auto bg-[#202528] rounded-md overflow-y-auto custom-scroll ml-4 shadow-lg border-t-8 border-[#7380EC]">
             <h2 className="text-2xl font-semibold m-4 text-white">Requests for Room Service</h2>
             <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full px-6">
               <div className="flex flex-col">
@@ -114,7 +115,7 @@ const Requests = () => {
           </div>
 
           {/* Medical Assistance Form */}
-          <div className="flex flex-col items-start pb-4 mb-2 w-full h-60 bg-[#202528] rounded-md overflow-y-auto custom-scroll ml-4 shadow-lg border-t-8 border-[#7380EC] mt-8">
+          <div className="flex flex-col items-start pb-4 mb-2 w-full h-auto bg-[#202528] rounded-md overflow-y-auto custom-scroll ml-4 shadow-lg border-t-8 border-[#7380EC] mt-8">
             <h3 className="text-xl font-semibold m-4 text-white">Medical Assistance</h3>
             <form onSubmit={handleSubmitMedical} className="flex flex-col space-y-4 w-full px-6">
               <div className="flex flex-col">
@@ -159,8 +160,8 @@ const Requests = () => {
         </div>
 
         {/* Reviews Section */}
-        <div className="flex flex-col w-full sm:w-[35%] bg-[#202528] rounded-md mr-4 text-white overflow-y-auto custom-scroll p-6 border-t-8 h-[600px] border-[#7380EC] shadow-lg mt-6 sm:mt-0 pt-4">
-          <h2 className="font-extrabold text-xl pl-4 text-center sm:text-left text-white">Reviews</h2>
+        <div className="flex flex-col w-full lg:w-[35%] bg-[#202528] rounded-md text-white overflow-y-auto custom-scroll p-6 border-t-8 h-auto border-[#7380EC] shadow-lg mt-6 lg:mt-0">
+          <h2 className="font-extrabold text-xl pl-4 text-center lg:text-left text-white">Reviews</h2>
           <div className="flex flex-col gap-4 mb-1">
             {/* Review for Room Service */}
             {submittedFormData && (
@@ -178,9 +179,6 @@ const Requests = () => {
                 <p className="text-sm text-gray-300 mb-2">
                   <span className="font-semibold text-white">Room No:</span> {submittedFormData.roomNo}
                 </p>
-                <p className="text-sm text-gray-300 mb-2">
-                  <span className="font-semibold text-white">Status:</span>  
-                </p>
               </div>
             )}
 
@@ -196,9 +194,6 @@ const Requests = () => {
                 </p>
                 <p className="text-sm text-gray-300 mb-2">
                   <span className="font-semibold text-white">Details:</span> {submittedMedicalFormData.details}
-                </p>
-                <p className="text-sm text-gray-300 mb-2">
-                  <span className="font-semibold text-white">Status:</span>  
                 </p>
               </div>
             )}
