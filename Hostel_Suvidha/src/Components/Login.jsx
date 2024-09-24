@@ -18,8 +18,12 @@ const Login = () => {
       },{ withCredentials: true });
       console.log('Response:', response.data);
       console.log('Response token:', response.data.data.accessToken);
+      let accessToken= response.data.data.accessToken;
+      let refreshToken= response.data.data.refreshToken;
+      let student= response.data.data.student;
       localStorage.setItem('accessToken', response.data.data.accessToken);
       localStorage.setItem('regNumber', response.data.data.student.regNumber);
+      localStorage.setItem('loginData', JSON.stringify({data: { accessToken, refreshToken, student } }));
       navigate("/dashboard");
     } catch (error) {
       console.error('There was an error!', error);

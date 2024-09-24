@@ -22,12 +22,14 @@ const InOut = () => {
       
         let hours = date.getUTCHours();
         const minutes = date.getUTCMinutes().toString().padStart(2, "0");
-        const seconds = date.getUTCSeconds().toString().padStart(2, "0");
         const ampm = hours >= 12 ? 'PM' : 'AM';
       
         hours = hours % 12 || 12;
       
-        return `${day}/${month}/${year} ${hours}:${minutes} ${ampm} UTC`;
+        return {
+            date: `${day}/${month}/${year}`,
+            time: `${hours}:${minutes} ${ampm}`
+        };
       };
 
     const fetchIGateEntries = async () => {
@@ -40,29 +42,42 @@ const InOut = () => {
                     },
                 }
             );
-            const fetchedEntries = response.data.data.map(entry => ({
-                date: formatDate(entry.createdAt).split(' ')[0],
-                inTime: entry.status === "In" ? formatDate(entry.createdAt).split(' ')[1]+" "+formatDate(entry.createdAt).split(' ')[2] : null,
-                outTime: entry.status === "Out" ? formatDate(entry.createdAt).split(' ')[1]+" "+formatDate(entry.createdAt).split(' ')[2] : null,
-            }));
 
-            setInOutLogs(fetchedEntries);
-            if (fetchedEntries.length > 0) {
-                const latestEntry = fetchedEntries[0];
-                setInStatus(latestEntry.inTime !== null);
+            const fetchedEntries = response.data.data.reduce((acc, entry) => {
+                const { date, time } = formatDate(entry.createdAt);
+
+                if (!acc[date]) {
+                    acc[date] = { date, inTime: null, outTime: null };
+                }
+
+                if (entry.status === "In") {
+                    acc[date].inTime = time;
+                } else if (entry.status === "Out") {
+                    acc[date].outTime = time;
+                }
+
+                return acc;
+            }, {});
+
+            const formattedEntries = Object.values(fetchedEntries);
+
+            setInOutLogs(formattedEntries);
+
+            // Determine the current in/out status based on the last entry
+            if (formattedEntries.length > 0) {
+                const latestEntry = formattedEntries[formattedEntries.length - 1];
+                setInStatus(latestEntry.inTime !== null && latestEntry.outTime === null);
             }
+
             console.log("Fetched API Response:", response.data);
         } catch (error) {
             console.error("Error fetching all gate entries:", error);
         }
     };
 
-    const check = (value) => value == null;
-
     useEffect(() => {
         fetchIGateEntries();
     }, []);
-
 
     return (
         <div>
@@ -99,9 +114,9 @@ const InOut = () => {
                                         <td className="px-4 py-3 pl-16 text-white text-left">{val.date}</td>
                                         <td className="px-4 py-3 pl-16 text-white text-left">{val.outTime || "N/A"}</td>
                                         <td className="px-4 py-3 pl-16 text-white text-left">
-                                            {check(val.inTime) ? (
+                                            {val.inTime ? val.inTime : (
                                                 <img src={clock} alt="Clock" className="inline w-6 h-6 ml-2" />
-                                            ) : val.inTime}
+                                            )}
                                         </td>
                                     </tr>
                                 ))}
