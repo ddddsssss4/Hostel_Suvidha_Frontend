@@ -1,120 +1,125 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useLocation } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import inp from '../assets/input.png';  
 import axios from 'axios';
+import Spinner from './Spinner'; // Import the Spinner component
 
 const FormValue1 = ({ backgroundImage }) => {
+  const [isLoading, setIsLoading] = useState(false); // State for loading
   const token = localStorage.getItem("accessToken");
   const type = useLocation().pathname.split('/')[2];
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const handleSubmit = async(values , {setSubmitting}) => {
+
+  const handleSubmit = async (values, { setSubmitting }) => {
     console.log('Form data', values);
-    try{
-      const response = await axios.post(`${backendUrl}/students/newComplaint`,
+    setIsLoading(true); // Set loading to true
+    try {
+      const response = await axios.post(
+        `${backendUrl}/students/newComplaint`,
         {
-          "title":values.complaintId,
-          "description":values.description,
-          "complaintType":type
+          "title": values.complaintId,
+          "description": values.description,
+          "complaintType": type
         },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
-      )
-      console.log("sumbitted!!")
-      console.log(response)
-    }catch(error){
-      console.log(error)
-    }
-    finally{
-      setSubmitting(false)
+      );
+      console.log("Submitted!!");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+      setIsLoading(false); // Set loading to false
     }
   };
 
   return (
     <div className="text-white rounded-3xl py-6 w-full max-w-[65vw] md:max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="relative mt-2 overflow-hidden rounded-3xl">
-        <img src={backgroundImage} className="w-full h-full object-cover rounded-md" alt="Background" />
-        
-        <div className="absolute inset-0 p-6">
-          <div className="p-6 rounded-md space-y-6">
-            <h2 className="font-extrabold text-2xl">FILL YOUR DETAILS</h2>
-            <Formik
-              initialValues={{
-                name: '',
-                roomNumber: '',
-                hostel: '',
-                description: '',
-                image: null,
-                complaintId: ''
-              }}
-              onSubmit={handleSubmit}
-            >
-              {({ setFieldValue }) => (
-                <Form className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-white">NAME</label>
-                      <Field
-                        name="name"
-                        type="text"
-                        className="mt-1 bg-[#171A1C] block w-full md:w-[80%] lg:w-[40%] rounded-md p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white placeholder-gray-400"
-                        placeholder="AMAN KUMAR"
-                      />
+      {isLoading ? ( // Display Spinner when loading
+        <Spinner />
+      ) : (
+        <div className="relative mt-2 overflow-hidden rounded-3xl">
+          <img src={backgroundImage} className="w-full h-full object-cover rounded-md" alt="Background" />
+          <div className="absolute inset-0 p-6">
+            <div className="p-6 rounded-md space-y-6">
+              <h2 className="font-extrabold text-2xl">FILL YOUR DETAILS</h2>
+              <Formik
+                initialValues={{
+                  name: '',
+                  roomNumber: '',
+                  hostel: '',
+                  description: '',
+                  image: null,
+                  complaintId: ''
+                }}
+                onSubmit={handleSubmit}
+              >
+                {({ setFieldValue }) => (
+                  <Form className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-white">NAME</label>
+                        <Field
+                          name="name"
+                          type="text"
+                          className="mt-1 bg-[#171A1C] block w-full md:w-[80%] lg:w-[40%] rounded-md p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white placeholder-gray-400"
+                          placeholder="AMAN KUMAR"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-white">COMPLAINT ID</label>
+                        <Field
+                          name="complaintId"
+                          type="text"
+                          className="mt-1 block w-full md:w-[80%] lg:w-[40%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white bg-[#171A1C] p-2 placeholder-gray-400"
+                          placeholder="12473"
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-white">COMPLAINT ID</label>
-                      <Field
-                        name="complaintId"
-                        type="text"
-                        className="mt-1 block w-full md:w-[80%] lg:w-[40%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white bg-[#171A1C] p-2 placeholder-gray-400"
-                        placeholder="12473"
-                      />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-white">ROOM NUMBER</label>
+                        <Field
+                          name="roomNumber"
+                          type="text"
+                          className="mt-1 block w-full md:w-[70%] lg:w-[30%] border-none rounded-md p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-[#171A1C] text-white placeholder-gray-400"
+                          placeholder="306 A"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-white w-[20px]">HOSTEL</label>
+                        <Field
+                          name="hostel"
+                          type="text"
+                          className="mt-1 block w-full md:w-[50%] lg:w-[20%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white placeholder-gray-400 bg-[#171A1C] p-2"
+                          placeholder="OBH"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-white">ROOM NUMBER</label>
-                      <Field
-                        name="roomNumber"
-                        type="text"
-                        className="mt-1 block w-full md:w-[70%] lg:w-[30%] border-none rounded-md p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-[#171A1C] text-white placeholder-gray-400"
-                        placeholder="306 A"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-white w-[20px]">HOSTEL</label>
-                      <Field
-                        name="hostel"
-                        type="text"
-                        className="mt-1 block w-full md:w-[50%] lg:w-[20%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white placeholder-gray-400 bg-[#171A1C] p-2"
-                        placeholder="OBH"
-                      />
-                    </div>
-                  </div>
-                  <h2 className="block text-sm font-medium text-white">DESCRIPTION OF THE COMPLAINT</h2>
-                  <div className="mb-4 w-full md:w-[85%] lg:w-[70%] h-52 flex bg-[#171A1C] rounded-md shadow-sm">
-                    <div className="w-full rounded-md">
-                      <Field
-                        name="description"
-                        as="textarea"
-                        className="block w-full resize-none rounded-md focus:outline-none sm:text-sm text-white bg-[#171A1C] p-4 placeholder-gray-500 h-full max-h-full"
-                        placeholder="Description up to 20 to 30 words..."
-                      />
-                    </div>
-
-                    <div className="mr-4 mt-2 flex flex-col items-center">
-                      <label className="block text-sm font-medium text-white mb-1">
-                        ADD IMAGE
-                      </label>
-                      <div className="w-32 h-36 relative bg-[#38393A] rounded-md flex cursor-pointer">
-                      <label className=" absolute block left-11 mt-1 text-sm font-medium text-white mb-1">
-                      IMAGE
-                      </label>
-                        <img className='absolute top-9 left-7' src={inp} alt="image" />
+                    <h2 className="block text-sm font-medium text-white">DESCRIPTION OF THE COMPLAINT</h2>
+                    <div className="mb-4 w-full md:w-[85%] lg:w-[70%] h-52 flex bg-[#171A1C] rounded-md shadow-sm">
+                      <div className="w-full rounded-md">
+                        <Field
+                          name="description"
+                          as="textarea"
+                          className="block w-full resize-none rounded-md focus:outline-none sm:text-sm text-white bg-[#171A1C] p-4 placeholder-gray-500 h-full max-h-full"
+                          placeholder="Description up to 20 to 30 words..."
+                        />
+                      </div>
+                      <div className="mr-4 mt-2 flex flex-col items-center">
+                        <label className="block text-sm font-medium text-white mb-1">
+                          ADD IMAGE
+                        </label>
+                        <div className="w-32 h-36 relative bg-[#38393A] rounded-md flex cursor-pointer">
+                          <label className="absolute block left-11 mt-1 text-sm font-medium text-white mb-1">
+                            IMAGE
+                          </label>
+                          <img className='absolute top-9 left-7' src={inp} alt="image" />
                           <input
                             name="image"
                             type="file"
@@ -123,21 +128,22 @@ const FormValue1 = ({ backgroundImage }) => {
                               setFieldValue("image", event.currentTarget.files[0]);
                             }}
                           />
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className=" bg-indigo-600 text-white py-2 px-10 rounded-md hover:bg-indigo-700">
-                    Submit
-                  </button>
-                </Form>
-              )}
-            </Formik>
+                    <button
+                      type="submit"
+                      className="bg-indigo-600 text-white py-2 px-10 rounded-md hover:bg-indigo-700"
+                    >
+                      Submit
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

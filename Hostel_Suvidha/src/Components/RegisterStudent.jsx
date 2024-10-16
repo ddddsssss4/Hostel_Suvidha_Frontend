@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import loginbg from '../assets/loginbg.png'; // Import background image
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Spinner from './Spinner'; // Import your spinner component
 
 const RegisterStudent = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -16,6 +17,8 @@ const RegisterStudent = () => {
     profileImage: null,
   });
 
+  const [loading, setLoading] = useState(false); // State to track loading
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'profileImage') {
@@ -27,7 +30,8 @@ const RegisterStudent = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+    setLoading(true); // Set loading to true when form submission starts
+
     const formData = new FormData();
     formData.append('fullName', studentData.fullName);
     formData.append('password', studentData.password);
@@ -48,6 +52,8 @@ const RegisterStudent = () => {
       navigate("/dashboard");
     } catch (error) {
       console.error('Registration Error:', error);
+    } finally {
+      setLoading(false); // Set loading to false after the request is complete
     }
   };
 
@@ -108,7 +114,14 @@ const RegisterStudent = () => {
               onChange={handleChange}
               className='w-full p-2 border rounded mb-4 text-white bg-[#202528]'
             />
-            <button type='submit' className='font-poppins w-full p-2 bg-white text-black rounded'>REGISTER</button>
+            <button
+              type='submit'
+              className='font-poppins w-full p-2 bg-white text-black rounded'
+              disabled={loading} // Disable the button while loading
+            >
+              REGISTER
+            </button>
+            {loading && <Spinner />} {/* Show the spinner if loading is true */}
           </div>
         </form>
       </div>

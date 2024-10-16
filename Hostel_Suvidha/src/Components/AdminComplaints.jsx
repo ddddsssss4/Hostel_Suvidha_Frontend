@@ -100,16 +100,16 @@
 
 
 
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import bgelm from '../assets/bgelement.png';
+import Spinner from './Spinner';
 
 const AdminComplaints = () => {
-    const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("accessToken");
   const [selectedCategory, setSelectedCategory] = useState('Electronic');
   const [complaintsData, setComplaintsData] = useState([]);
+  const [loading, setLoading] = useState(true); // State for managing the loader
   const categories = [
     'ALL', 'ELECTRONIC', 'FURNITURE', 'WASHROOM', 'ROOM SERVICE', 
     'DISCIPLINARY', 'WIFI'
@@ -118,16 +118,19 @@ const AdminComplaints = () => {
   // Fetch complaints data from the API
   useEffect(() => {
     const fetchComplaints = async () => {
+      setLoading(true); // Set loading to true before fetching data
       try {
-        const response = await axios.get('https://hostel-suvidha.onrender.com/api/v1/students/allComplaints',{
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+        const response = await axios.get('https://hostel-suvidha.onrender.com/api/v1/students/allComplaints', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         });
         console.log("Fetched Complaints:", response.data.data);
         setComplaintsData(response.data.data);
       } catch (error) {
         console.error("Error fetching complaints data:", error);
+      } finally {
+        setLoading(false); // Set loading to false after data is fetched or an error occurs
       }
     };
 
@@ -159,43 +162,48 @@ const AdminComplaints = () => {
           ))}
         </div>
 
-        {/* Complaints Table */}
-        <div className="overflow-x-auto">
-          <table className="w-[90%] bg-gray-800 rounded-md">
-            <thead>
-              <tr className="text-left text-white uppercase text-sm">
-                <th className="py-3 px-6">Type of Complaint</th>
-                <th className="py-3 px-6">Complaint ID</th>
-                <th className="py-3 px-6">Status</th>
-                <th className="py-3 px-6">Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {complaintsData.map((complaint, index) => (
-                selectedCategory === 'ALL' || complaint.complaintType?.toUpperCase() === selectedCategory?.toUpperCase() ? (
-                  <tr key={index} className="text-sm font-semibold text-gray-300 border-t border-gray-700">
-                    <td className="py-3 px-6">{complaint.complaintType}</td>
-                    <td className="py-3 px-6">{complaint.title}</td>
-                    <td className="py-3 px-6">
-                      <span
-                        className={`px-3 py-1 rounded-full font-bold ${
-                          complaint.status === 'Pending'
-                            ? 'text-yellow-400'
-                            : complaint.status === 'Completed'
-                            ? 'text-green-400'
-                            : 'text-red-400'
-                        }`}
-                      >
-                        {complaint.status}
-                      </span>
-                    </td>
-                    <td className="py-3 px-6 text-blue-400 cursor-pointer">Details</td>
-                  </tr>
-                ) : null
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {/* Display Loader while fetching data */}
+        {loading ? (
+          <Spinner />
+        ) : (
+          // Complaints Table
+          <div className="overflow-x-auto">
+            <table className="w-[90%] bg-gray-800 rounded-md">
+              <thead>
+                <tr className="text-left text-white uppercase text-sm">
+                  <th className="py-3 px-6">Type of Complaint</th>
+                  <th className="py-3 px-6">Complaint ID</th>
+                  <th className="py-3 px-6">Status</th>
+                  <th className="py-3 px-6">Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                {complaintsData.map((complaint, index) => (
+                  selectedCategory === 'ALL' || complaint.complaintType?.toUpperCase() === selectedCategory?.toUpperCase() ? (
+                    <tr key={index} className="text-sm font-semibold text-gray-300 border-t border-gray-700">
+                      <td className="py-3 px-6">{complaint.complaintType}</td>
+                      <td className="py-3 px-6">{complaint.title}</td>
+                      <td className="py-3 px-6">
+                        <span
+                          className={`px-3 py-1 rounded-full font-bold ${
+                            complaint.status === 'Pending'
+                              ? 'text-yellow-400'
+                              : complaint.status === 'Completed'
+                              ? 'text-green-400'
+                              : 'text-red-400'
+                          }`}
+                        >
+                          {complaint.status}
+                        </span>
+                      </td>
+                      <td className="py-3 px-6 text-blue-400 cursor-pointer">Details</td>
+                    </tr>
+                  ) : null
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
