@@ -92,7 +92,7 @@ const Dashboard = () => {
           </div>
 
           <div className="text-xl font-extrabold text-white mb-4 mt-8">RECENT REQUESTS</div>
-          <div className="w-full md:w-5/6 bg-[#202528] rounded-xl overflow-x-auto shadow-black h-[300px] overflow-y-auto custom-scroll">
+          <div className="w-full md:w-full bg-[#202528] rounded-xl overflow-x-auto shadow-black h-[300px] overflow-y-auto custom-scroll">
             <table className="min-w-full hidden md:table text-left border-collapse">
               <thead className="sticky top-0 bg-gray-800 z-10">
                 <tr>
@@ -108,7 +108,15 @@ const Dashboard = () => {
                   <tr key={complaint._id} className="border-b border-gray-700">
                     <td className="px-4 py-2 text-white">{complaint.title}</td>
                     <td className="px-4 py-2 text-white">{complaint.description}</td>
-                    <td className={`px-4 py-2 font-semibold ${getStatusClass(complaint.status)}`}>
+                    <td className={`px-3 py-1 rounded-full bg-transparent border-none focus:outline-none ${
+                          complaint.status === 'Pending'
+                            ? 'text-yellow-400'
+                            : complaint.status === 'InProgress'
+                            ? 'text-blue-400'
+                            : complaint.status === 'Resolved'
+                            ? 'text-green-400'
+                            : 'text-red-400'
+                        }`}>
                       {complaint.status}
                     </td>
                     <td className="px-4 py-2 text-white">{complaint.roomNumber}</td>

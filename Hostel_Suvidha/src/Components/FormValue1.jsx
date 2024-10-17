@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { useLocation } from 'react-router-dom';
+import { redirect, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import inp from '../assets/input.png';  
 import axios from 'axios';
 
 const FormValue1 = ({ backgroundImage }) => {
+  const [studentData, setStudentData] = useState({
+    fullName: '',
+    profileImage: '',
+    hostel: '',
+    roomNumber: '',
+    regNumber: '',
+  });
   const token = localStorage.getItem("accessToken");
   const type = useLocation().pathname.split('/')[2];
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  useEffect(() => {
+    const storedData = localStorage.getItem('loginData');
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        const { accessToken, refreshToken, student } = parsedData.data;
+        setStudentData(student);
+      }catch(error){
+        console.log(error)
+      }
+    }
+  }, []);
+
+
   const handleSubmit = async(values , {setSubmitting}) => {
     console.log('Form data', values);
     try{
       const response = await axios.post(`${backendUrl}/students/newComplaint`,
         {
-          "title":values.complaintId,
+          "title":values.title,
           "description":values.description,
           "complaintType":type
         },
@@ -26,6 +47,7 @@ const FormValue1 = ({ backgroundImage }) => {
       )
       console.log("sumbitted!!")
       console.log(response)
+      redirect("/dashboard")
     }catch(error){
       console.log(error)
     }
@@ -44,12 +66,12 @@ const FormValue1 = ({ backgroundImage }) => {
             <h2 className="font-extrabold text-2xl">FILL YOUR DETAILS</h2>
             <Formik
               initialValues={{
-                name: '',
-                roomNumber: '',
-                hostel: '',
+                name: studentData.fullName,
+                roomNumber: studentData.roomNumber,
+                hostel: studentData.hostel,
                 description: '',
                 image: null,
-                complaintId: ''
+                title: ''
               }}
               onSubmit={handleSubmit}
             >
@@ -61,34 +83,38 @@ const FormValue1 = ({ backgroundImage }) => {
                       <Field
                         name="name"
                         type="text"
+                        value={studentData.fullName}
                         className="mt-1 bg-[#171A1C] block w-full md:w-[80%] lg:w-[40%] rounded-md p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white placeholder-gray-400"
                         placeholder="AMAN KUMAR"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-white">COMPLAINT ID</label>
-                      <Field
-                        name="complaintId"
-                        type="text"
-                        className="mt-1 block w-full md:w-[80%] lg:w-[40%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white bg-[#171A1C] p-2 placeholder-gray-400"
-                        placeholder="12473"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
                       <label className="block text-sm font-medium text-white">ROOM NUMBER</label>
                       <Field
                         name="roomNumber"
+                        value={studentData.roomNumber}
                         type="text"
                         className="mt-1 block w-full md:w-[70%] lg:w-[30%] border-none rounded-md p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-[#171A1C] text-white placeholder-gray-400"
                         placeholder="306 A"
+                      />
+                    </div>
+                    
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-white">TITLE</label>
+                      <Field
+                        name="title"
+                        type="text"
+                        className="mt-1 block w-full md:w-[80%] lg:w-[80%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white bg-[#171A1C] p-2 placeholder-gray-400"
+                        placeholder="XYZ NOT WORKING..."
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-white w-[20px]">HOSTEL</label>
                       <Field
                         name="hostel"
+                        value={studentData.hostel}
                         type="text"
                         className="mt-1 block w-full md:w-[50%] lg:w-[20%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-white placeholder-gray-400 bg-[#171A1C] p-2"
                         placeholder="OBH"
