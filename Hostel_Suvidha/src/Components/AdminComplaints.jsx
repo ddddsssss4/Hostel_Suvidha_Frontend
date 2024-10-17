@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import bgelm from '../assets/bgelement.png';
+import Spinner from './Spinner';
 
 const AdminComplaints = () => {
-  const token = localStorage.getItem("accessToken");
-  const [selectedCategory, setSelectedCategory] = useState('ALL');
+    const token = localStorage.getItem("accessToken");
+  const [selectedCategory, setSelectedCategory] = useState('Electronic');
   const [complaintsData, setComplaintsData] = useState([]);
+  const [loading, setLoading] = useState(true); // State for managing the loader
   const [isUpdating, setIsUpdating] = useState(false);
   const [error, setError] = useState(null);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -18,17 +20,19 @@ const AdminComplaints = () => {
   // Fetch complaints data from the API
   useEffect(() => {
     const fetchComplaints = async () => {
+      setLoading(true); // Set loading to true before fetching data
       try {
-        const response = await axios.get(`${backendUrl}/admins/getAllComplaints`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+        const response = await axios.get('https://hostel-suvidha.onrender.com/api/v1/students/allComplaints',{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
         });
         console.log("Fetched Complaints:", response.data.data);
         setComplaintsData(response.data.data);
       } catch (error) {
         console.error("Error fetching complaints data:", error);
-        setError("Failed to fetch complaints. Please try again later.");
+      } finally {
+        setLoading(false); // Set loading to false after data is fetched or an error occurs
       }
     };
 
@@ -108,68 +112,45 @@ const AdminComplaints = () => {
         )}
 
         {/* Complaints Table */}
-        <div className="w-[90%] overflow-x-auto h-80">
-          <table className="w-full bg-gray-800 rounded-md">
+        {loading ? (
+          <Spinner />
+        ) : (
+        <div className="overflow-x-auto">
+          <table className="w-[90%] bg-gray-800 rounded-md">
             <thead>
               <tr className="text-left text-white uppercase text-sm">
                 <th className="py-3 px-6">Type of Complaint</th>
-                <th className="py-3 px-6">Title</th>
+                <th className="py-3 px-6">Complaint ID</th>
                 <th className="py-3 px-6">Status</th>
-                <th className="py-3 px-6">Actions</th>
                 <th className="py-3 px-6">Details</th>
               </tr>
             </thead>
             <tbody>
-              {complaintsData.map((complaint) => (
-                (selectedCategory === 'ALL' || 
-                 complaint.complaintType?.toUpperCase() === selectedCategory?.toUpperCase()) && (
-                  <tr key={complaint._id} className="text-sm font-semibold text-gray-300 border-t border-gray-700">
+              {complaintsData.map((complaint, index) => (
+                selectedCategory === 'ALL' || complaint.complaintType?.toUpperCase() === selectedCategory?.toUpperCase() ? (
+                  <tr key={index} className="text-sm font-semibold text-gray-300 border-t border-gray-700">
                     <td className="py-3 px-6">{complaint.complaintType}</td>
                     <td className="py-3 px-6">{complaint.title}</td>
-                    <td className={`px-3 py-1 rounded-full font-bold bg-transparent border-none focus:outline-none ${
+                    <td className="py-3 px-6">
+                      <span
+                        className={`px-3 py-1 rounded-full font-bold ${
                           complaint.status === 'Pending'
                             ? 'text-yellow-400'
-                            : complaint.status === 'InProgress'
-                            ? 'text-blue-400'
-                            : complaint.status === 'Resolved'
+                            : complaint.status === 'Completed'
                             ? 'text-green-400'
                             : 'text-red-400'
-                        }`}>{complaint.status}</td>
-                    <td className="py-3 px-6">
-                      {complaint.status === 'Pending' && (
-                        <button
-                          className="px-3 py-1 rounded-full font-bold bg-yellow-400 text-gray-800"
-                          onClick={() => handleStatusChange(complaint._id, 'InProgress')}
-                          disabled={isUpdating}
-                        >
-                          Move to In Progress
-                        </button>
-                      )}
-                      {complaint.status === 'InProgress' && (
-                        <button
-                          className="px-3 py-1 rounded-full font-bold bg-blue-400 text-gray-800"
-                          onClick={() => handleStatusChange(complaint._id, 'Resolved')}
-                          disabled={isUpdating}
-                        >
-                          Move to Resolved
-                        </button>
-                      )}
+                        }`}
+                      >
+                        {complaint.status}
+                      </span>
                     </td>
-                    <td className="py-3 px-6 text-blue-400 cursor-pointer">
-                      <a href={`/complaints/${complaint._id}`}>Details</a>
-                    </td>
+                    <td className="py-3 px-6 text-blue-400 cursor-pointer">Details</td>
                   </tr>
-                )
+                ) : null
               ))}
             </tbody>
           </table>
         </div>
-
-        {/* Loading Indicator */}
-        {isUpdating && (
-          <div className="text-center text-white mt-4">
-            Updating status...
-          </div>
         )}
       </div>
     </div>

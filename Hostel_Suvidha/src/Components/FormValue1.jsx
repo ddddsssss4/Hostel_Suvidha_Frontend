@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import { redirect, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import inp from '../assets/input.png';  
 import axios from 'axios';
+import Spinner from './Spinner'; // Import the Spinner component
 
 const FormValue1 = ({ backgroundImage }) => {
+  const [isLoading, setIsLoading] = useState(false); // State for loading
   const [studentData, setStudentData] = useState({
     fullName: '',
     profileImage: '',
@@ -16,6 +18,7 @@ const FormValue1 = ({ backgroundImage }) => {
   const token = localStorage.getItem("accessToken");
   const type = useLocation().pathname.split('/')[2];
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   useEffect(() => {
     const storedData = localStorage.getItem('loginData');
     if (storedData) {
@@ -30,34 +33,39 @@ const FormValue1 = ({ backgroundImage }) => {
   }, []);
 
 
-  const handleSubmit = async(values , {setSubmitting}) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     console.log('Form data', values);
-    try{
-      const response = await axios.post(`${backendUrl}/students/newComplaint`,
+    setIsLoading(true); // Set loading to true
+    try {
+      const response = await axios.post(
+        `${backendUrl}/students/newComplaint`,
         {
-          "title":values.title,
-          "description":values.description,
-          "complaintType":type
+          "title": values.title,
+          "description": values.description,
+          "complaintType": type
         },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
-      )
-      console.log("sumbitted!!")
-      console.log(response)
+      );
+      console.log("Submitted!!");
+      console.log(response);
       redirect("/dashboard")
-    }catch(error){
-      console.log(error)
-    }
-    finally{
-      setSubmitting(false)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+      setIsLoading(false); // Set loading to false
     }
   };
 
   return (
     <div className="text-white rounded-3xl py-6 w-full max-w-[65vw] md:max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+        {isLoading ? ( // Display Spinner when loading
+        <Spinner />
+      ) : (
       <div className="relative mt-2 overflow-hidden rounded-3xl">
         <img src={backgroundImage} className="w-full h-full object-cover rounded-md" alt="Background" />
         
@@ -149,21 +157,22 @@ const FormValue1 = ({ backgroundImage }) => {
                               setFieldValue("image", event.currentTarget.files[0]);
                             }}
                           />
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className=" bg-indigo-600 text-white py-2 px-10 rounded-md hover:bg-indigo-700">
-                    Submit
-                  </button>
-                </Form>
-              )}
-            </Formik>
+                    <button
+                      type="submit"
+                      className="bg-indigo-600 text-white py-2 px-10 rounded-md hover:bg-indigo-700"
+                    >
+                      Submit
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

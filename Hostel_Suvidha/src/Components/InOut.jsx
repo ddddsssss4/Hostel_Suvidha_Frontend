@@ -3,6 +3,7 @@ import axios from "axios";
 import bg from '../assets/bgelement.png';
 import '../App.css';
 import clock from '../assets/clock.svg';
+import Spinner from './Spinner'; 
 
 const InOut = () => {
     const token = localStorage.getItem("accessToken");
@@ -11,13 +12,13 @@ const InOut = () => {
 
     const [inOutLogs, setInOutLogs] = useState([]);
     const [inStatus, setInStatus] = useState(false);
+    const [loading, setLoading] = useState(true); // Loading state
 
     const formatDate = (isoString) => {
         const date = new Date(isoString);
       
-        // Extracting UTC date and time components
         const day = date.getUTCDate();
-        const month = date.getUTCMonth() + 1; // Months are zero-based
+        const month = date.getUTCMonth() + 1;
         const year = date.getUTCFullYear();
       
         let hours = date.getUTCHours();
@@ -30,10 +31,11 @@ const InOut = () => {
             date: `${day}/${month}/${year}`,
             time: `${hours}:${minutes} ${ampm}`
         };
-      };
+    };
 
     const fetchIGateEntries = async () => {
         try {
+            setLoading(true); // Set loading to true before fetching
             const response = await axios.get(
                 `${backendUrl}/gate/allGateEnteriesByStudent/${regNumber}`,
                 {
@@ -63,15 +65,15 @@ const InOut = () => {
 
             setInOutLogs(formattedEntries);
 
-            // Determine the current in/out status based on the last entry
             if (formattedEntries.length > 0) {
                 const latestEntry = formattedEntries[formattedEntries.length - 1];
                 setInStatus(latestEntry.inTime !== null && latestEntry.outTime === null);
             }
 
-            console.log("Fetched API Response:", response.data);
         } catch (error) {
             console.error("Error fetching all gate entries:", error);
+        } finally {
+            setLoading(false); // Set loading to false after fetching is done
         }
     };
 
@@ -99,30 +101,36 @@ const InOut = () => {
                 </div>
 
                 <div className="mt-8 flex gap-8 w-full">
-                    <div className="flex justify-center items-top pb-4 mb-2 w-[50%] h-80 bg-[#202528] rounded-md overflow-y-auto custom-scroll ml-4 shadow-black border-t-8 border-[#7380EC]">
-                        <table className="min-w-full table-auto h-10">
-                            <thead>
-                                <tr>
-                                    <th className="px-4 py-4 pl-16 text-gray-200 text-left">Date</th>
-                                    <th className="px-4 py-4 pl-16 text-gray-200 text-left">OutTime</th>
-                                    <th className="px-4 py-4 pl-16 text-gray-200 text-left">InTime</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {inOutLogs.map((val, i) => (
-                                    <tr key={i} className="border-b border-gray-700">
-                                        <td className="px-4 py-3 pl-16 text-white text-left">{val.date}</td>
-                                        <td className="px-4 py-3 pl-16 text-white text-left">{val.outTime || "N/A"}</td>
-                                        <td className="px-4 py-3 pl-16 text-white text-left">
-                                            {val.inTime ? val.inTime : (
-                                                <img src={clock} alt="Clock" className="inline w-6 h-6 ml-2" />
-                                            )}
-                                        </td>
+                    {loading ? (
+                        <div className="flex justify-center items-center w-full">
+                            <Spinner /> {/* Display the spinner while loading */}
+                        </div>
+                    ) : (
+                        <div className="flex justify-center items-top pb-4 mb-2 w-[50%] h-80 bg-[#202528] rounded-md overflow-y-auto custom-scroll ml-4 shadow-black border-t-8 border-[#7380EC]">
+                            <table className="min-w-full table-auto h-10">
+                                <thead>
+                                    <tr>
+                                        <th className="px-4 py-4 pl-16 text-gray-200 text-left">Date</th>
+                                        <th className="px-4 py-4 pl-16 text-gray-200 text-left">OutTime</th>
+                                        <th className="px-4 py-4 pl-16 text-gray-200 text-left">InTime</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    {inOutLogs.map((val, i) => (
+                                        <tr key={i} className="border-b border-gray-700">
+                                            <td className="px-4 py-3 pl-16 text-white text-left">{val.date}</td>
+                                            <td className="px-4 py-3 pl-16 text-white text-left">{val.outTime || "N/A"}</td>
+                                            <td className="px-4 py-3 pl-16 text-white text-left">
+                                                {val.inTime ? val.inTime : (
+                                                    <img src={clock} alt="Clock" className="inline w-6 h-6 ml-2" />
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

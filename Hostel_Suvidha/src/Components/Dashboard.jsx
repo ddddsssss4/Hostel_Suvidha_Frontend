@@ -3,6 +3,7 @@ import dashboard_bg from '../assets/dashboard_bg.png';
 import bg from '../assets/bgelement.png';
 import '../App.css';
 import axios from 'axios'; // Import axios for API requests
+import Spinner from './Spinner'; // Import Spinner component
 
 const Dashboard = () => {
   const [studentData, setStudentData] = useState({
@@ -18,6 +19,7 @@ const Dashboard = () => {
     { sender: "AIT PUNE", text: "All students should be present in the CG lab.", imageUrl: "https://th.bing.com/th/id/OIP.PkrwrLwaq68CaqLPn7jBIwHaHa?rs=1&pid=ImgDetMain", isActive: true },
     { sender: "ADMIN", text: "Council meet tomorrow at 8:45 PM.", imageUrl: "https://www.treasurebox.co.nz/pub/media/wysiwyg/cmspage/david.png" },
   ]);
+  const [loading, setLoading] = useState(true); // State for loading
 
   useEffect(() => {
     const storedData = localStorage.getItem('loginData');
@@ -37,10 +39,16 @@ const Dashboard = () => {
           })
           .catch((error) => {
             console.error("Error fetching complaints:", error);
+          })
+          .finally(() => {
+            setLoading(false); // Set loading to false when data fetching is complete
           });
       } catch (e) {
         console.error("Error parsing login data from localStorage", e);
+        setLoading(false); // Set loading to false if there is an error
       }
+    } else {
+      setLoading(false); // Set loading to false if there is no stored data
     }
   }, []);
 
@@ -57,6 +65,10 @@ const Dashboard = () => {
         return "text-white";
     }
   };
+
+  if (loading) {
+    return <Spinner />; // Show Spinner component while loading
+  }
 
   return (
     <div className="relative flex flex-col md:flex-row w-full h-full overflow-hidden">

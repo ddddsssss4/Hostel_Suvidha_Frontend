@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import loginbg from '../assets/loginbg.png';
-import inp from '../assets/input.png';  
+import inp from '../assets/input.png';
+import Spinner from './Spinner'; // Import your spinner component
 
 const Recognition = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false); // State to track loading
   const token = localStorage.getItem('token');
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -21,9 +23,10 @@ const Recognition = () => {
     const formData = new FormData();
     formData.append('image1', selectedFile);
     console.log('FormData:', selectedFile);
+    setLoading(true); // Set loading to true
 
     try {
-      const response = await axios.post(`${backendUrl}/face/verifyFaces`,formData, {
+      const response = await axios.post(`${backendUrl}/face/verifyFaces`, formData, {
         headers: {
           "Content-Type": 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -32,6 +35,8 @@ const Recognition = () => {
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error uploading the file:', error);
+    } finally {
+      setLoading(false); // Set loading to false after upload attempt finishes
     }
   };
 
@@ -60,7 +65,14 @@ const Recognition = () => {
                 <span className='absolute text-gray-400 text-lg font-medium'>{selectedFile?.name || 'Upload Image'}</span>
               </div>
             </div>
-            <button type='submit' className='font-poppins w-full p-2 bg-[#7380EC] text-white rounded-md hover:bg-[#606be2] transition duration-300'>Upload</button>
+            <button
+              type='submit'
+              className='font-poppins w-full p-2 bg-[#7380EC] text-white rounded-md hover:bg-[#606be2] transition duration-300'
+              disabled={loading} // Disable the button while loading
+            >
+              Upload
+            </button>
+            {loading && <Spinner />} {/* Show the spinner if loading is true */}
           </div>
         </form>
       </div>
@@ -69,4 +81,3 @@ const Recognition = () => {
 };
 
 export default Recognition;
-
