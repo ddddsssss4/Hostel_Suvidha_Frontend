@@ -19,7 +19,7 @@ const AdminComplaints = () => {
   // Fetch complaints data from the API
   useEffect(() => {
     const fetchComplaints = async () => {
-      setLoading(true); // Set loading to true before fetching data
+       // Set loading to true before fetching data
       try {
         const response = await axios.get(`${backendUrl}/admins/getAllComplaints`, {
           headers: {
