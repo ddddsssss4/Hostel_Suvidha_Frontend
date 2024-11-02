@@ -10,27 +10,30 @@ const Login = () => {
     regNumber: '',
     password: ''
   });
+  const [role, setRole] = useState('student'); // State to track selected role
   const [loading, setLoading] = useState(false); // State to track loading
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true); // Set loading to true
+
     try {
-      const response = await axios.post(`${backendUrl}/students/login`, {
+      const response = await axios.post(`${backendUrl}/${role}/login`, {
         'regNumber': formData.regNumber,
         'password': formData.password
       }, { withCredentials: true });
 
       console.log('Response:', response.data);
-      console.log('Response token:', response.data.data.accessToken);
-      let accessToken = response.data.data.accessToken;
-      let refreshToken = response.data.data.refreshToken;
-      let student = response.data.data.student;
-      localStorage.setItem('accessToken', response.data.data.accessToken);
-      localStorage.setItem('regNumber', response.data.data.student.regNumber);
+      const { accessToken, refreshToken, student } = response.data.data;
+
+      // Store login data in local storage
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('regNumber', student.regNumber);
       localStorage.setItem('loginData', JSON.stringify({ data: { accessToken, refreshToken, student } }));
-      navigate("/dashboard");
+
+      // Navigate based on role
+      navigate(`/${role}/dashboard`);
     } catch (error) {
       console.error('There was an error!', error);
     } finally {
@@ -46,6 +49,10 @@ const Login = () => {
     }));
   };
 
+  const handleRoleChange = (e) => {
+    setRole(e.target.value);
+  };
+
   return (
     <div className='relative w-6/12 h-screen flex items-center justify-start'>
       <img src={loginbg} className='absolute w-full h-3/12 object-fit z-0 rounded-xl' alt='Login Background' />
@@ -55,7 +62,38 @@ const Login = () => {
             <h1 className='font-poppins text-2xl mb-2 text-white font-bold'>LOGIN</h1>
             <div className='w-20 bg-[#7380EC] h-1 mb-4'></div>
           </div>
-          {loading ? ( // Show the spinner if loading is true
+
+          <div className="mb-4">
+            <label className='font-poppins text-white'>Select Role</label>
+            <div className="flex space-x-4">
+              <label className="text-white">
+                <input
+                  type="radio"
+                  value="student"
+                  checked={role === 'student'}
+                  onChange={handleRoleChange}
+                /> Student
+              </label>
+              <label className="text-white">
+                <input
+                  type="radio"
+                  value="staff"
+                  checked={role === 'staff'}
+                  onChange={handleRoleChange}
+                /> Staff
+              </label>
+              <label className="text-white">
+                <input
+                  type="radio"
+                  value="admin"
+                  checked={role === 'admin'}
+                  onChange={handleRoleChange}
+                /> Admin
+              </label>
+            </div>
+          </div>
+
+          {loading ? (
             <Spinner />
           ) : (
             <>
