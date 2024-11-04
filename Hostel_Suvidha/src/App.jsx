@@ -22,6 +22,7 @@ import FaceRecognition from "./Pages/FaceRecognition";
 import Laundry from "./Components/Laundry";
 import Outpassleave from "./Components/Outpassleave";
 import RegisterStudent from "./Components/RegisterStudent";
+import ComplaintDetail from './Components/ComplaintDetail'; 
 
 //Admin Pages
 
@@ -52,6 +53,7 @@ const App = () => (
         <Route path="/Complaints/Wifi" element={<Wifi />} />
         <Route path="/Complaints/Miscellaneous" element={<Miscellaneous />} />
         <Route path="/Complaints/Grievances" element={<Grievances />} />
+        <Route path="/complaints/:complaintId" element={<ComplaintDetail />} />
       </Route>
 
       <Route path="/login" element={<LoginPage />} />
