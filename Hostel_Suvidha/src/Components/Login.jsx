@@ -10,7 +10,7 @@ const Login = () => {
     regNumber: '',
     password: ''
   });
-  const [role, setRole] = useState('student'); // State to track selected role
+  const [role, setRole] = useState('students'); // State to track selected role
   const [loading, setLoading] = useState(false); // State to track loading
   const navigate = useNavigate();
 

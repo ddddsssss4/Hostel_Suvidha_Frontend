@@ -1,7 +1,6 @@
-import React from 'react';
+import {React,useState,useEffect} from 'react';
 import { Formik, Form, Field } from 'formik';
-import { useLocation } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import inp from '../assets/input.png';  
 import axios from 'axios';
 import Spinner from './Spinner'; // Import the Spinner component
@@ -18,6 +17,7 @@ const FormValue1 = ({ backgroundImage }) => {
   const token = localStorage.getItem("accessToken");
   const type = useLocation().pathname.split('/')[2];
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedData = localStorage.getItem('loginData');
@@ -52,12 +52,12 @@ const FormValue1 = ({ backgroundImage }) => {
       );
       console.log("Submitted!!");
       console.log(response);
-      redirect("/dashboard")
     } catch (error) {
       console.log(error);
     } finally {
       setSubmitting(false);
       setIsLoading(false); // Set loading to false
+      navigate("/students/dashboard")
     }
   };
 
