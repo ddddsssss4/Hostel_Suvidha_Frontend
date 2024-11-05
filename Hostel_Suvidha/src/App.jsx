@@ -3,6 +3,9 @@ import LoginPage from "./Pages/LoginPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React from "react";
 
+
+import { SnackbarProvider } from '../src/Components/SnackbarContext';
+
 //Student Pages
 
 import Dashboard from "./Components/Dashboard";
@@ -33,11 +36,12 @@ import AdminGateEntries from "./Components/AdminGateEntries";
 
 const App = () => (
   <BrowserRouter>
+    <SnackbarProvider>
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route element={<MainLayout />}>
         {/* Student Routes */}
-        <Route path="/students/dashboard" element={<Dashboard />} />
+        <Route path="/student/dashboard" element={<Dashboard />} />
 
         {/* <Route path="/" element={<Dashboard />} /> */}
         <Route path="/complaints" element={<Complaints />} />
@@ -66,8 +70,8 @@ const App = () => (
         <Route path="/admin/complaints" element={<AdminComplaints/>} />
         <Route path="/admin/inOut" element={<AdminGateEntries/>} />
       </Route>
-
     </Routes>
+      </SnackbarProvider>
   </BrowserRouter>
 );
 

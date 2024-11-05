@@ -4,9 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import inp from '../assets/input.png';  
 import axios from 'axios';
 import Spinner from './Spinner'; // Import the Spinner component
+import { useSnackbar } from './SnackbarContext';
 
 const FormValue1 = ({ backgroundImage }) => {
-  const [isLoading, setIsLoading] = useState(false); // State for loading
+  const [isLoading, setIsLoading] = useState(false);
+  const { showSnackbar } = useSnackbar();  // State for loading
   const [studentData, setStudentData] = useState({
     fullName: '',
     profileImage: '',
@@ -52,12 +54,14 @@ const FormValue1 = ({ backgroundImage }) => {
       );
       console.log("Submitted!!");
       console.log(response);
+      showSnackbar("Complaint submitted successfully!");
+      navigate("/students/dashboard")
     } catch (error) {
       console.log(error);
     } finally {
       setSubmitting(false);
-      setIsLoading(false); // Set loading to false
-      navigate("/students/dashboard")
+      setIsLoading(false); 
+      
     }
   };
 
@@ -66,7 +70,7 @@ const FormValue1 = ({ backgroundImage }) => {
         {isLoading ? ( // Display Spinner when loading
         <Spinner />
       ) : (
-      <div className="relative mt-2 overflow-hidden rounded-3xl">
+      <div className="relative mt-2 overflow-hidden h-[78vh] rounded-3xl">
         <img src={backgroundImage} className="w-full h-full object-cover rounded-md" alt="Background" />
         
         <div className="absolute inset-0 p-6">

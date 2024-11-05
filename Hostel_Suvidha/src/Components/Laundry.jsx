@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import bgelm from "../assets/bgelement.png";
 import { Formik, Form, Field } from "formik";
 import Spinner from './Spinner'; // Import the spinner component
+import { useSnackbar } from './SnackbarContext';
 
 const Laundry = () => {
   const token = localStorage.getItem("accessToken");
@@ -11,6 +11,7 @@ const Laundry = () => {
   const [previousClothes, setPreviousClothes] = useState([]);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(true); // Loading state
+  const { showSnackbar } = useSnackbar(); 
 
   // Fetch previous laundry requests on component mount
   useEffect(() => {
@@ -85,6 +86,7 @@ const Laundry = () => {
         }
       );
       console.log("API Response:", response);
+      showSnackbar("Laundry request submitted successfully");
     } catch (error) {
       console.log("API Error:", error);
     } finally {
@@ -103,12 +105,8 @@ const Laundry = () => {
 
   return (
     <div className="relative text-white px-4 sm:px-0">
-      <img
-        src={bgelm}
-        alt="Background Element"
-        className="absolute inset-0 w-full h-full object-cover top-[-6vh] z-[-1]"
-      />
-      <div className="flex flex-col min-h-screen gap-6 mt-12">
+      
+      <div className="flex flex-col min-h-full gap-6 mt-12">
         <h1 className="font-extrabold text-3xl text-center sm:text-left">
           LAUNDRY
         </h1>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+import bgelm from "../assets/bgelement.png";
+
 
 const MainLayout = () => {
 
@@ -24,7 +26,7 @@ const MainLayout = () => {
           </NavLink>
         </div>
         <ul className='pt-32 text-white font-poppins text-lg '>
-          <NavLinkItem to="/students/dashboard" label="Dashboard"/>
+          <NavLinkItem to="/student/dashboard" label="Dashboard"/>
           <NavLinkItem to="/laundry" label="Laundry"/>
           <NavLinkItem to="/complaints" label="Complaints" />
           <NavLinkItem to="/inOut" label="In-Out"/>
@@ -40,6 +42,11 @@ const MainLayout = () => {
 
       {/* Content */}
       <div className="w-full lg:w-[77%] h-screen overflow-y-auto relative">
+      <img
+                src={bgelm}
+                alt="Background Element"
+                className="absolute inset-0 w-full h-screen object-cover z-1"
+            />
         <div className="relative z-10">
           <Outlet />  {/* This is where the page content will be rendered */}
         </div>

@@ -3,6 +3,7 @@ import loginbg from '../assets/loginbg.png'; // Import background image
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Spinner from './Spinner'; // Import your spinner component
+import { useSnackbar } from './SnackbarContext';
 
 const RegisterStudent = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -18,6 +19,7 @@ const RegisterStudent = () => {
   });
 
   const [loading, setLoading] = useState(false); // State to track loading
+  const { showSnackbar } = useSnackbar(); 
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -49,6 +51,7 @@ const RegisterStudent = () => {
       });
 
       console.log('Registration Response:', response.data);
+      showSnackbar('Registration Successful !!');
       navigate("/dashboard");
     } catch (error) {
       console.error('Registration Error:', error);

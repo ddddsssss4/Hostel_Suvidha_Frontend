@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import bg from '../assets/bgelement.png';
 import '../App.css';
 
 function Outpassleave() {
@@ -42,12 +41,6 @@ function Outpassleave() {
 
     return (
         <div className="relative min-h-screen">
-            {/* Background image */}
-            <img
-                src={bg}
-                alt="Background Element"
-                className="absolute inset-0 w-full h-full object-cover z-[-1]"
-            />
             <div className="p-8 pt-28 gap-8 w-full relative flex flex-col md:flex-row justify-between">
                 {/* Form Section */}
                 <div className="bg-[#202528] text-white flex-col p-6 rounded-3xl w-full md:w-[45%] border-b-8 border-[#7380EC] h-auto mb-8 md:mb-0">

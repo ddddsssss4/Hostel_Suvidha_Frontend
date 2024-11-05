@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import bgelm from '../assets/bgelement.png';
 import Spinner from './Spinner';
 
 const AdminComplaints = () => {
@@ -75,12 +74,7 @@ const AdminComplaints = () => {
 
   return (
     <div className="relative text-white px-4 sm:px-0">
-      <img 
-        src={bgelm} 
-        alt="Background Element" 
-        className="absolute inset-0 w-full h-full object-cover top-[-6vh] z-[-1]" 
-      />
-      <div className="flex flex-col min-h-screen gap-6 mt-12">
+      <div className="flex flex-col min-h-full gap-6 mt-12">
         <h1 className="font-extrabold text-3xl text-center sm:text-left">
           COMPLAINTS
         </h1>
@@ -140,7 +134,7 @@ const AdminComplaints = () => {
                     <td className="py-3 px-6">
                       {complaint.status === 'Pending' && (
                         <button
-                          className="px-3 py-1 rounded-full font-bold bg-yellow-400 text-gray-800"
+                          className="px-3 py-1 rounded-full font-bold bg-blue-400 text-gray-800"
                           onClick={() => handleStatusChange(complaint._id, 'InProgress')}
                           disabled={isUpdating}
                         >
@@ -149,7 +143,7 @@ const AdminComplaints = () => {
                       )}
                       {complaint.status === 'InProgress' && (
                         <button
-                          className="px-3 py-1 rounded-full font-bold bg-blue-400 text-gray-800"
+                          className="px-3 py-1 rounded-full font-bold bg-green-400 text-gray-800"
                           onClick={() => handleStatusChange(complaint._id, 'Resolved')}
                           disabled={isUpdating}
                         >

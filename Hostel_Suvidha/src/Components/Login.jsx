@@ -10,7 +10,7 @@ const Login = () => {
     regNumber: '',
     password: ''
   });
-  const [role, setRole] = useState('students'); // State to track selected role
+  const [role, setRole] = useState('student'); // State to track selected role
   const [loading, setLoading] = useState(false); // State to track loading
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const Login = () => {
     setLoading(true); // Set loading to true
 
     try {
-      const response = await axios.post(`${backendUrl}/${role}/login`, {
+      const response = await axios.post(`${backendUrl}/${role}s/login`, {
         'regNumber': formData.regNumber,
         'password': formData.password
       }, { withCredentials: true });

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import dashboard_bg from '../assets/dashboard_bg.png';
-import bg from '../assets/bgelement.png';
 import '../App.css';
 import axios from 'axios';
 import Spinner from './Spinner'; // Import Spinner component
@@ -58,11 +57,6 @@ const Dashboard = () => {
 
   return (
     <div className="relative flex flex-col md:flex-row w-full h-full overflow-hidden">
-      <img 
-        src={bg} 
-        alt="Background Element" 
-        className="absolute inset-0 w-full h-full object-cover z-0" 
-      />
       <div className="flex flex-col md:flex-row w-full relative z-10">
         {/* Left side with two vertically stacked divs */}
         <div className="flex flex-col w-full md:w-[60%] mt-8 p-4 relative z-10">
