@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import dashboard_bg from '../assets/dashboard_bg.png';
 import adminpic from "../assets/adminpic.jpg"; // Use admin's profile picture
-import bg from '../assets/bgelement.png';
 import '../App.css';
 import axios from 'axios'; // Import axios for API requests
 
@@ -54,7 +53,6 @@ const AdminDashboard = () => {
   return (
     <div className="relative flex flex-col md:flex-row w-full h-full overflow-hidden">
   {/* Background image */}
-  <img src={bg} alt="Background Element" className="absolute inset-0 w-full h-full object-cover z-0" />
 
   {/* Main content */}
   <div className="flex flex-col md:flex-row w-full relative z-10">

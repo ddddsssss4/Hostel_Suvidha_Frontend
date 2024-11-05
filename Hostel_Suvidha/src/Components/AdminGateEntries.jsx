@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import bg from '../assets/bgelement.png';
 import '../App.css';
 import clock from '../assets/clock.svg';
 import Spinner from './Spinner'; // Import the Spinner component
@@ -124,11 +123,6 @@ const AdminGateEntries = () => {
 
     return (
         <div>
-            <img
-                src={bg}
-                alt="Background Element"
-                className="absolute inset-0 w-full h-full object-cover z-[-1]"
-            />
             {loading ? (
                 <Spinner /> // Show the Spinner component when loading
             ) : (

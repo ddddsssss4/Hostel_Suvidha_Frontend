@@ -3,6 +3,9 @@ import LoginPage from "./Pages/LoginPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React from "react";
 
+
+import { SnackbarProvider } from '../src/Components/SnackbarContext';
+
 //Student Pages
 
 import Dashboard from "./Components/Dashboard";
@@ -22,6 +25,7 @@ import FaceRecognition from "./Pages/FaceRecognition";
 import Laundry from "./Components/Laundry";
 import Outpassleave from "./Components/Outpassleave";
 import RegisterStudent from "./Components/RegisterStudent";
+import ComplaintDetail from './Components/ComplaintDetail'; 
 
 //Admin Pages
 
@@ -32,6 +36,7 @@ import AdminGateEntries from "./Components/AdminGateEntries";
 
 const App = () => (
   <BrowserRouter>
+    <SnackbarProvider>
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route element={<MainLayout />}>
@@ -52,6 +57,7 @@ const App = () => (
         <Route path="/Complaints/Wifi" element={<Wifi />} />
         <Route path="/Complaints/Miscellaneous" element={<Miscellaneous />} />
         <Route path="/Complaints/Grievances" element={<Grievances />} />
+        <Route path="/complaints/:complaintId" element={<ComplaintDetail />} />
       </Route>
 
       <Route path="/login" element={<LoginPage />} />
@@ -64,8 +70,8 @@ const App = () => (
         <Route path="/admins/complaints" element={<AdminComplaints/>} />
         <Route path="/admins/inOut" element={<AdminGateEntries/>} />
       </Route>
-
     </Routes>
+      </SnackbarProvider>
   </BrowserRouter>
 );
 

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import dashboard_bg from '../assets/dashboard_bg.png';
-import bg from '../assets/bgelement.png';
 import '../App.css';
-import axios from 'axios'; // Import axios for API requests
+import axios from 'axios';
 import Spinner from './Spinner'; // Import Spinner component
 
 const Dashboard = () => {
@@ -29,13 +28,12 @@ const Dashboard = () => {
         const { accessToken, refreshToken, student } = parsedData.data;
         setStudentData(student);
 
-        // Set authorization header with the access token for axios
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
-        // Fetch complaints from API
         axios.get(`${backendUrl}/students/allComplaints`)
           .then((response) => {
-            setComplaints(response.data.data); // Assuming the API returns an array of complaints
+            setComplaints(response.data.data);
+            console.log(response); 
           })
           .catch((error) => {
             console.error("Error fetching complaints:", error);
@@ -52,19 +50,6 @@ const Dashboard = () => {
     }
   }, []);
 
-  // Function to determine the text color based on status
-  const getStatusClass = (status) => {
-    switch (status) {
-      case "Pending":
-        return "text-orange-400";
-      case "Completed":
-        return "text-green-400";
-      case "Declined":
-        return "text-red-400";
-      default:
-        return "text-white";
-    }
-  };
 
   if (loading) {
     return <Spinner />; // Show Spinner component while loading
@@ -72,14 +57,6 @@ const Dashboard = () => {
 
   return (
     <div className="relative flex flex-col md:flex-row w-full h-full overflow-hidden">
-      {/* Background Image */}
-      <img 
-        src={bg} 
-        alt="Background Element" 
-        className="absolute inset-0 w-full h-full object-cover z-0" 
-      />
-
-      {/* Content Overlay */}
       <div className="flex flex-col md:flex-row w-full relative z-10">
         {/* Left side with two vertically stacked divs */}
         <div className="flex flex-col w-full md:w-[60%] mt-8 p-4 relative z-10">
@@ -149,7 +126,15 @@ const Dashboard = () => {
                 <div key={complaint._id} className="bg-[#202528] p-4 mb-4 rounded-xl shadow-md">
                   <div className="text-white font-bold text-lg">{complaint.title}</div>
                   <div className="text-white text-sm">Description: {complaint.description}</div>
-                  <div className={`text-white text-sm ${getStatusClass(complaint.status)}`}>Status: {complaint.status}</div>
+                  <div className={`text-white text-sm ${
+                          complaint.status === 'Pending'
+                            ? 'text-yellow-400'
+                            : complaint.status === 'InProgress'
+                            ? 'text-blue-400'
+                            : complaint.status === 'Resolved'
+                            ? 'text-green-400'
+                            : 'text-red-400'
+                        }`}>Status: {complaint.status}</div>
                   <a
                     href={`/complaints/${complaint._id}`}
                     className="text-blue-500 hover:underline"
