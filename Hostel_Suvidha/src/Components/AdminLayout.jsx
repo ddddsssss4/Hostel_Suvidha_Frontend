@@ -24,12 +24,12 @@ const MainLayout = () => {
           </NavLink>
         </div>
         <ul className='pt-32 text-white font-poppins text-lg '>
-          <NavLinkItem to="/admin" label="Dashboard"/>
-          <NavLinkItem to="/admin/laundry" label="Laundry"/>
-          <NavLinkItem to="/admin/complaints" label="Complaints" />
-          <NavLinkItem to="/admin/inOut" label="In-Out"/>
+          <NavLinkItem to="/admins" label="Dashboard"/>
+          <NavLinkItem to="/admins/laundry" label="Laundry"/>
+          <NavLinkItem to="/admins/complaints" label="Complaints" />
+          <NavLinkItem to="/admins/inOut" label="In-Out"/>
           {/* <NavLinkItem to="/requests" label="Requests" /> */}
-          <NavLinkItem to="/admin/Outpassleave" label="Outpass &Leave"/>
+          <NavLinkItem to="/admins/Outpassleave" label="Outpass &Leave"/>
         </ul>
         <div className='absolute bottom-6 left-0 w-full'>
           <NavLink to="/login" className="block py-4 px-6 hover:bg-[#0E1012] hover:border-l-4 hover:border-[#7380EC] text-[#7D8DA1] font-poppins text-xl font-bold">
