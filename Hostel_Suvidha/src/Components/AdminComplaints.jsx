@@ -111,7 +111,7 @@ const AdminComplaints = () => {
         )}
 
         {/* Complaints Table */}
-        <div className="w-[90%] overflow-x-auto h-80">
+        <div className="w-[90%] overflow-x-auto h-80 custom-scroll">
           <table className="w-full bg-gray-800 rounded-md">
             <thead className='sticky top-0 bg-gray-800'>
               <tr className="text-left text-white uppercase text-sm">

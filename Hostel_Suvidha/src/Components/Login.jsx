@@ -3,6 +3,7 @@ import loginbg from '../assets/loginbg.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Spinner from './Spinner';
+import { useSnackbar } from './SnackbarContext';
 
 const Login = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -14,6 +15,7 @@ const Login = () => {
   const [role, setRole] = useState('students'); // State to track selected role
   const [loading, setLoading] = useState(false); // State to track loading
   const navigate = useNavigate();
+  const { showSnackbar } = useSnackbar();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,13 +34,14 @@ const Login = () => {
 
       // Store login data in local storage
       localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('loginData', JSON.stringify({ data: { accessToken, refreshToken, student } }));
+      localStorage.setItem('loginData', JSON.stringify({ data: response.data.data }));
       
       if (role === 'students') localStorage.setItem('regNumber', student.regNumber);
       
       // Navigate based on role
       navigate(`/${role}/dashboard`);
     } catch (error) {
+      showSnackbar('Invalid Credentials !!', 'red');
       console.error('There was an error!', error);
     } finally {
       setLoading(false); // Set loading to false after login attempt finishes

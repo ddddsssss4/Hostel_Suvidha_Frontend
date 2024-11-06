@@ -7,6 +7,7 @@ import axios from 'axios'; // Import axios for API requests
 const AdminDashboard = () => {
   const [complaints, setComplaints] = useState([]);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const [adminData, setAdminData] = useState({});
 
   const [messages, setMessages] = useState([
     { sender: "AIT PUNE", text: "All students should be present in the CG lab.", imageUrl: "https://th.bing.com/th/id/OIP.PkrwrLwaq68CaqLPn7jBIwHaHa?rs=1&pid=ImgDetMain", isActive: true },
@@ -18,15 +19,14 @@ const AdminDashboard = () => {
     if (storedData) {
       try {
         const parsedData = JSON.parse(storedData);
-        const { accessToken, refreshToken, student } = parsedData.data;
+        const { accessToken, refreshToken, admin } = parsedData.data;
+        setAdminData(admin);
 
-        // Set authorization header with the access token for axios
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
-        // Fetch complaints from API
         axios.get(`${backendUrl}/admins/getAllComplaints`)
           .then((response) => {
-            setComplaints(response.data.data); // Assuming the API returns an array of complaints
+            setComplaints(response.data.data);
           })
           .catch((error) => {
             console.error("Error fetching complaints:", error);
@@ -49,10 +49,12 @@ const AdminDashboard = () => {
         return "text-white";
     }
   };
+  const formatCamelCase = (text) => {
+    return text?.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+  };
 
   return (
     <div className="relative flex flex-col md:flex-row w-full h-full overflow-hidden">
-  {/* Background image */}
 
   {/* Main content */}
   <div className="flex flex-col md:flex-row w-full relative z-10">
@@ -70,8 +72,8 @@ const AdminDashboard = () => {
             <img src={adminpic} className="w-full h-full object-cover" alt="Admin" />
           </div>
           <div className="absolute bottom-0 left-0 p-4 text-white text-3xl font-extrabold">
-            <div className="text-lg text-[#FF824C]">ADMIN</div>
-            AMAN KUMAR
+            <div className="text-lg text-[#FF824C]">{formatCamelCase(adminData.adminType)}</div>
+            {adminData.fullName}
           </div>
         </div>
       </div>
@@ -80,7 +82,7 @@ const AdminDashboard = () => {
       <h2 className="text-xl font-extrabold text-white mb-4 mt-8">RECENT COMPLAINTS</h2>
 
       {/* Table for larger screens */}
-      <div className="w-full md:w-full bg-[#202528] rounded-xl overflow-x-auto shadow-black h-[300px] overflow-y-auto custom-scroll">
+      <div className="w-full md:w-[full] bg-[#202528] rounded-xl overflow-x-auto shadow-black h-[16.5%] overflow-y-auto custom-scroll">
       <table className="min-w-full hidden md:table text-left border-collapse">
               <thead className="sticky top-0 bg-gray-800 z-10">
                 <tr>

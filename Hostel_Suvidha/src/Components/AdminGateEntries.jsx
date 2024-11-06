@@ -150,9 +150,9 @@ const AdminGateEntries = () => {
                     </div>
 
                     <div className="mt-8 flex gap-8 w-full">
-                        <div className="flex justify-center items-top pb-4 mb-2 w-[70%] h-full bg-[#202528] rounded-md overflow-y-auto custom-scroll ml-4 shadow-black border-t-8 border-[#7380EC]">
+                        <div className="flex justify-center items-top pb-4 mb-2 w-[70%] h-[90%] bg-[#202528] rounded-md overflow-y-auto custom-scroll ml-4 shadow-black border-t-8 border-[#7380EC]">
                             <table className="min-w-full table-auto h-10">
-                                <thead>
+                                <thead className="sticky top-0 bg-[#202528ec]">
                                     <tr>
                                         <th className="px-4 py-4 pl-16 text-gray-200 text-left">Reg Number</th>
                                         <th className="px-4 py-4 pl-16 text-gray-200 text-left">Date</th>

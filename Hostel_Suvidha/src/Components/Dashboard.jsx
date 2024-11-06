@@ -3,6 +3,7 @@ import dashboard_bg from '../assets/dashboard_bg.png';
 import '../App.css';
 import axios from 'axios';
 import Spinner from './Spinner'; // Import Spinner component
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const [studentData, setStudentData] = useState({
@@ -19,6 +20,7 @@ const Dashboard = () => {
     { sender: "ADMIN", text: "Council meet tomorrow at 8:45 PM.", imageUrl: "https://www.treasurebox.co.nz/pub/media/wysiwyg/cmspage/david.png" },
   ]);
   const [loading, setLoading] = useState(true); // State for loading
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedData = localStorage.getItem('loginData');
@@ -37,6 +39,12 @@ const Dashboard = () => {
           })
           .catch((error) => {
             console.error("Error fetching complaints:", error);
+            if (error.response && error.response.status== 401) {
+              localStorage.removeItem("accessToken"); 
+              navigate('/login'); 
+            } else {
+              setError("Failed to fetch complaints. Please try again later.");
+            }
           })
           .finally(() => {
             setLoading(false); // Set loading to false when data fetching is complete
@@ -81,7 +89,7 @@ const Dashboard = () => {
           </div>
 
           <div className="text-xl font-extrabold text-white mb-4 mt-8">RECENT REQUESTS</div>
-          <div className="w-full md:w-full bg-[#202528] rounded-xl overflow-x-auto shadow-black h-[300px] overflow-y-auto custom-scroll">
+          <div className="w-full md:w-full bg-[#202528] rounded-xl overflow-x-auto shadow-black h-[30vh] overflow-y-auto custom-scroll">
             <table className="min-w-full hidden md:table text-left border-collapse">
               <thead className="sticky top-0 bg-gray-800 z-10">
                 <tr>
@@ -163,7 +171,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className='mt-6 flex flex-col w-full'>
+          <div className='mt-6 flex flex-col w-full h-[82vh]'>
             <div className='pt-6 text-white text-xl font-bold mb-2 font-poppins text-right'>
               RECENT UPDATES
             </div>
