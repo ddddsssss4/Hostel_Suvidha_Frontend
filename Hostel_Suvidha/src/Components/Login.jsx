@@ -2,36 +2,40 @@ import React, { useState } from 'react';
 import loginbg from '../assets/loginbg.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Spinner from './Spinner'; // Import your spinner component
+import Spinner from './Spinner';
 
 const Login = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     regNumber: '',
+    username: '',
     password: ''
   });
-  const [role, setRole] = useState('student'); // State to track selected role
+  const [role, setRole] = useState('students'); // State to track selected role
   const [loading, setLoading] = useState(false); // State to track loading
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading to true
+    setLoading(true);
 
     try {
-      const response = await axios.post(`${backendUrl}/${role}s/login`, {
-        'regNumber': formData.regNumber,
-        'password': formData.password
-      }, { withCredentials: true });
+      // Use 'username' if role is 'admins'; otherwise, use 'regNumber'
+      const payload = {
+        password: formData.password,
+        ...(role === 'admins' ? { username: formData.username } : { regNumber: formData.regNumber })
+      };
 
+      const response = await axios.post(`${backendUrl}/${role}/login`, payload, { withCredentials: true });
       console.log('Response:', response.data);
       const { accessToken, refreshToken, student } = response.data.data;
 
       // Store login data in local storage
       localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('regNumber', student.regNumber);
       localStorage.setItem('loginData', JSON.stringify({ data: { accessToken, refreshToken, student } }));
-
+      
+      if (role === 'students') localStorage.setItem('regNumber', student.regNumber);
+      
       // Navigate based on role
       navigate(`/${role}/dashboard`);
     } catch (error) {
@@ -69,24 +73,24 @@ const Login = () => {
               <label className="text-white">
                 <input
                   type="radio"
-                  value="student"
-                  checked={role === 'student'}
+                  value="students"
+                  checked={role === 'students'}
                   onChange={handleRoleChange}
                 /> Student
               </label>
-              <label className="text-white">
+              {/* <label className="text-white">
                 <input
                   type="radio"
                   value="staff"
                   checked={role === 'staff'}
                   onChange={handleRoleChange}
                 /> Staff
-              </label>
+              </label> */}
               <label className="text-white">
                 <input
                   type="radio"
-                  value="admin"
-                  checked={role === 'admin'}
+                  value="admins"
+                  checked={role === 'admins'}
                   onChange={handleRoleChange}
                 /> Admin
               </label>
@@ -98,14 +102,30 @@ const Login = () => {
           ) : (
             <>
               <div className='mb-4'>
-                <label className='font-poppins block mb-1 text-white' htmlFor='regNumber'>Registration Number</label>
-                <input
-                  type='text'
-                  id='regNumber'
-                  value={formData.regNumber}
-                  onChange={handleChange}
-                  className='w-full p-2 border rounded mb-4 text-white bg-[#202528]'
-                />
+                {/* Render 'username' input for 'admins' role and 'regNumber' for others */}
+                {role === 'admins' ? (
+                  <>
+                    <label className='font-poppins block mb-1 text-white' htmlFor='username'>Username</label>
+                    <input
+                      type='text'
+                      id='username'
+                      value={formData.username}
+                      onChange={handleChange}
+                      className='w-full p-2 border rounded mb-4 text-white bg-[#202528]'
+                    />
+                  </>
+                ) : (
+                  <>
+                    <label className='font-poppins block mb-1 text-white' htmlFor='regNumber'>User Id</label>
+                    <input
+                      type='text'
+                      id='regNumber'
+                      value={formData.regNumber}
+                      onChange={handleChange}
+                      className='w-full p-2 border rounded mb-4 text-white bg-[#202528]'
+                    />
+                  </>
+                )}
                 <label className='font-poppins block mb-1 text-white' htmlFor='password'>Password</label>
                 <input
                   type='password'
@@ -117,16 +137,15 @@ const Login = () => {
                 <div className='font-poppins text-right mb-4 text-white'>Forgot Password?</div>
                 <button
                   type='submit'
-                  onClick={handleSubmit}
                   className='font-poppins w-full p-2 bg-white text-black rounded'
-                  disabled={loading} // Disable the button while loading
+                  disabled={loading}
                 >
                   LOGIN
                 </button>
                 <button
-                  className='font-poppins w-full p-2 bg-gray-600 text-black rounded mt-4'
+                  className='font-poppins w-full p-2 bg-white text-black rounded mt-4'
                   onClick={() => navigate('/register')}
-                  disabled={loading} // Optionally disable the register button while loading
+                  disabled={loading}
                 >
                   Register
                 </button>

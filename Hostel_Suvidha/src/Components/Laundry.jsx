@@ -111,7 +111,7 @@ const Laundry = () => {
         <h1 className="font-extrabold text-3xl text-center sm:text-left">
           LAUNDRY
         </h1>
-        <div className="flex lg:w-[75vw] flex-col lg:flex-row gap-8 mb-4">
+        <div className="flex lg:w-[70vw] flex-col lg:flex-row gap-8 mb-4">
           {loading ? (
             <div className="flex justify-center items-center w-full h-[70vh]">
               <Spinner /> {/* Display the spinner while loading */}
@@ -190,8 +190,8 @@ const Laundry = () => {
                   )}
                 </Formik>
               </div>
-              <div className="p-6 bg-[#202528] border-t-8 border-[#7380EC] lg:w-1/3 rounded-md h-[70vh] overflow-y-scroll">
-                <h1 className="text-xl">Previous Clothes</h1>
+              <div className="p-6 bg-[#202528] -mr-5 border-t-8 border-[#7380EC] lg:w-[70vh] rounded-md h-[70vh] overflow-y-scroll custom-scroll">
+                <h1 className="text-xl pb-6 font-bold sticky -top-6 pt-4 bg-[#202528] z-10 ">Previous Clothes:</h1>
                 <div className="flex flex-col gap-4">
                   {Array.isArray(previousClothes) && previousClothes.length > 0 ? (
                     previousClothes.map((entry, index) => (
@@ -233,6 +233,35 @@ const Laundry = () => {
                             {entry.status || "PENDING"}
                           </h2>
                         </div>
+
+                        <div className="status flex justify-between mt-2 items-center">
+                          <h2 className="font-bold text-md">APPROVAL STATUS : </h2>
+                          <h2 className={`${entry.approvalStatus === "Approved" ? "text-green-500" : entry.approvalStatus === "Declined" ? "text-red-500" : "text-yellow-400"} font-bold text-md`}>
+                            {entry.approvalStatus || "Pending"}
+                          </h2>
+                        </div>
+
+                        <div className="status flex justify-between mt-2 items-center">
+                          <h2 className="font-bold text-md">WASHING STATUS : </h2>
+                          <h2 className={`${entry.washingStatus === "Completed" ? "text-green-500" : "text-yellow-400"} font-bold text-md`}>
+                            {entry.washingStatus || "Pending"}
+                          </h2>
+                        </div>
+
+                        <div className="status flex justify-between mt-2 items-center">
+                          <h2 className="font-bold text-md">RETURN REQUEST : </h2>
+                          <h2 className={`${entry.returnRequest === "Requested" ? "text-blue-500" : "text-yellow-400"} font-bold text-md`}>
+                            {entry.returnRequest || "Not Requested"}
+                          </h2>
+                        </div>
+
+                        <div className="status flex justify-between mt-2 items-center">
+                          <h2 className="font-bold text-md">RECEIVED STATUS : </h2>
+                          <h2 className={`${entry.receivedStatus === "Received" ? "text-green-500" : "text-yellow-400"} font-bold text-md`}>
+                            {entry.receivedStatus || "Not Received"}
+                          </h2>
+                        </div>
+
                       </div>
                     ))
                   ) : (

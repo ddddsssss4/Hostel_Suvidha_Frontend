@@ -26,7 +26,7 @@ const MainLayout = () => {
           </NavLink>
         </div>
         <ul className='pt-32 text-white font-poppins text-lg '>
-          <NavLinkItem to="/student/dashboard" label="Dashboard"/>
+          <NavLinkItem to="students/dashboard" label="Dashboard"/>
           <NavLinkItem to="/laundry" label="Laundry"/>
           <NavLinkItem to="/complaints" label="Complaints" />
           <NavLinkItem to="/inOut" label="In-Out"/>

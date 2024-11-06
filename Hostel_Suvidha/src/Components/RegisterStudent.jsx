@@ -33,6 +33,7 @@ const RegisterStudent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true); // Set loading to true when form submission starts
+    setError(''); // Clear previous errors
 
     const formData = new FormData();
     formData.append('fullName', studentData.fullName);
@@ -56,6 +57,11 @@ const RegisterStudent = () => {
     } catch (error) {
       showSnackbar('Registration Failed !!','red');
       console.error('Registration Error:', error);
+      if (error.response && error.response.status === 409) {
+        setError('Student with the Registration Number already exists.');
+      } else {
+        setError('An error occurred during registration. Please try again.');
+      }
     } finally {
       setLoading(false); // Set loading to false after the request is complete
     }
@@ -70,6 +76,7 @@ const RegisterStudent = () => {
             <h1 className='font-poppins text-2xl mb-2 text-white font-bold'>REGISTER</h1>
             <div className='w-20 bg-[#7380EC] h-1 mb-4'></div>
           </div>
+          {error && <p className="text-red-500 mb-4">{error}</p>}
           <div className='mb-4'>
             <label className='font-poppins block mb-1 text-white' htmlFor='fullName'>Full Name</label>
             <input

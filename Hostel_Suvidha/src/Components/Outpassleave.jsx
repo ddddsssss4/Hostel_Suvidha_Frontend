@@ -99,7 +99,7 @@ function Outpassleave() {
                 <div className="flex pt-0 flex-col w-full md:w-[50%] custom-scroll bg-[#202528] text-white overflow-y-scroll p-6 rounded-3xl border-b-8 border-[#7380EC] h-[600px]">
                     {/* Toggle Button Section */}
                     <div className="sticky top-0 bg-[#202528] z-10">
-                        <h2 className="text-xl font-semibold mb-4">OUTPASS / LEAVES DETAILS</h2>
+                        <h2 className="text-xl font-semibold mb-4 mt-6">OUTPASS / LEAVES DETAILS</h2>
                         <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 mb-4">
                             <button
                                 onClick={() => setToggleView('outpass')}
