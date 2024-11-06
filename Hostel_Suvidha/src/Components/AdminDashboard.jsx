@@ -24,7 +24,7 @@ const AdminDashboard = () => {
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
         // Fetch complaints from API
-        axios.get(`${backendUrl}/students/allComplaints`)
+        axios.get(`${backendUrl}/admins/getAllComplaints`)
           .then((response) => {
             setComplaints(response.data.data); // Assuming the API returns an array of complaints
           })
@@ -92,7 +92,9 @@ const AdminDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {complaints.map((complaint) => (
+                {complaints
+                .sort((a,b)=>(a.status==='Resolved')-(b.status==='Resolved'))
+                .map((complaint) => (
                   <tr key={complaint._id} className="border-b border-gray-700">
                     <td className="px-4 py-2 text-white">{complaint.title}</td>
                     <td className="px-4 py-2 text-white">{complaint.description}</td>
@@ -109,31 +111,25 @@ const AdminDashboard = () => {
                     </td>
                     <td className="px-4 py-2 text-white">{complaint.roomNumber}</td>
                     <td className="px-4 py-2">
-                      <a
-                        href={`/complaints/${complaint._id}`}
-                        className="text-blue-500 hover:underline"
-                      >
-                        Details
-                      </a>
+                    {(complaint.status!='Resolved')?
+                      <a href={`/complaints/${complaint._id}`} className="text-blue-500 hover:underline">Details</a>
+                     : ""}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
 
-      {/* Card View for smaller screens */}
+      {}
       <div className="md:hidden">
         {complaints.map((complaint) => (
           <div key={complaint._id} className="bg-[#202528] p-4 mb-4 rounded-xl shadow-md">
             <div className="text-white font-bold text-lg">{complaint.title}</div>
             <div className="text-white text-sm">Description: {complaint.description}</div>
             <div className={`text-white text-sm ${getStatusClass(complaint.status)}`}>Status: {complaint.status}</div>
-            <a
-              href={`/complaints/${complaint._id}`}
-              className="text-blue-500 hover:underline"
-            >
-              Details
-            </a>
+            {(complaint.status!='Resolved')?
+              <a href={`/complaints/${complaint._id}`} className="text-blue-500 hover:underline">Details</a>
+             : ""}
           </div>
         ))}
       </div>
