@@ -122,7 +122,9 @@ const Dashboard = () => {
               </tbody>
             </table>
             <div className="md:hidden">
-              {complaints.map((complaint) => (
+            {complaints
+                .sort((a,b)=>(a.status==='Closed')-(b.status==='Closed'))
+                .map((complaint) => (
                 <div key={complaint._id} className="bg-[#202528] p-4 mb-4 rounded-xl shadow-md">
                   <div className="text-white font-bold text-lg">{complaint.title}</div>
                   <div className="text-white text-sm">Description: {complaint.description}</div>

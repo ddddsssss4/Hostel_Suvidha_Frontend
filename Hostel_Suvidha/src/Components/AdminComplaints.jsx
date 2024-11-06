@@ -60,12 +60,14 @@ const AdminComplaints = () => {
               : complaint
           )
         );
-        alert("Status updated successfully.");
+        showSnackbar("Status updated successfully.");
       } else {
-        throw new Error("Failed to update status.");
+        showSnackbar("Failed to update status. Please try again.","red");
+        console.error("Failed to update status.", err);
       }
     } catch (err) {
       console.error("Error updating status:", err);
+      showSnackbar("Failed to update status. Please try again.","red");
       setError("Failed to update status. Please try again.");
     } finally {
       setIsUpdating(false);

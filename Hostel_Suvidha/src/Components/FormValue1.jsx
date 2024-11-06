@@ -57,6 +57,7 @@ const FormValue1 = ({ backgroundImage }) => {
       showSnackbar("Complaint submitted successfully!");
       navigate("/students/dashboard")
     } catch (error) {
+      showSnackbar("Failed to submit complaint. Please try again.", "red");
       console.log(error);
     } finally {
       setSubmitting(false);

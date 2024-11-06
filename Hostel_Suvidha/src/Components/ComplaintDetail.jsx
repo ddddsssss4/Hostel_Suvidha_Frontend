@@ -1,38 +1,78 @@
+// src/components/ComplaintDetail.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Spinner from './Spinner';
 import bgelm from "../assets/bgelement.png";
+import { useSnackbar } from './SnackbarContext';
 
 const ComplaintDetail = () => {
   const { complaintId } = useParams();
   const [complaintData, setComplaintData] = useState(null);
   const [loading, setIsLoading] = useState(true);
+  const [updating, setUpdating] = useState(false);
+  const [givingFeedback, setGivingFeedback] = useState(false);
+  const [feedback, setFeedback] = useState('');
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const token = localStorage.getItem('accessToken');
+  const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
     const fetchComplaintData = async () => {
       try {
         const response = await axios.get(`${backendUrl}/students/allComplaints`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         response.data.data.forEach(e => {
-          if(e._id==complaintId){
+          if (e._id === complaintId) {
             setComplaintData(e);
           }
         });
       } catch (error) {
-        setError('Failed to load complaint data');
-        console.error(error);
+        console.error('Failed to load complaint data:', error);
+        showSnackbar('Failed to load complaint data');
       } finally {
         setIsLoading(false);
       }
     };
     fetchComplaintData();
-  }, [backendUrl, token]);
+  }, [backendUrl, complaintId, token, showSnackbar]);
+
+
+  const handleFeedbackSubmit = async () => {
+    if (!feedback) {
+      showSnackbar("Please enter your feedback before submitting.", "red");
+      return;
+    }
+
+    setUpdating(true);
+    try {
+      const response = await axios.post(`${backendUrl}/students/submitFeedback`, {
+        complaintId,
+        feedback,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.status === 200) {
+        setComplaintData((prev) => ({ ...prev, status: 'Closed' }));
+        showSnackbar("Feedback submitted and complaint closed.");
+      } else {
+        showSnackbar("Failed to submit feedback. Please try again.", "red");
+      }
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      showSnackbar("Failed to submit feedback. Please try again.", "red");
+    } finally {
+      setUpdating(false);
+      setGivingFeedback(false);
+    }
+  };
 
   return (
     <div className="relative text-white px-4 sm:px-0">
@@ -48,15 +88,13 @@ const ComplaintDetail = () => {
         <div className="flex lg:w-[75vw] flex-col lg:flex-row gap-8 mb-4">
           {loading ? (
             <div className="flex justify-center items-center w-full h-[70vh]">
-              <Spinner /> {/* Display spinner while loading */}
+              <Spinner />
             </div>
           ) : (
-            <>
-              {/* Complaint Detail Card */}
-              <div className="p-6 border-t-8 border-[#7380EC] bg-[#202528] lg:w-2/3 rounded-md h-[70vh]">
-                {complaintData ? (
-                  <div className="space-y-4">
-                    <p><strong>Title:</strong> {complaintData.title}</p>
+            <div className="p-6 border-t-8 border-[#7380EC] bg-[#202528] lg:w-2/3 rounded-md h-[70vh]">
+              {complaintData ? (
+                <div className="space-y-4">
+                  <p><strong>Title:</strong> {complaintData.title}</p>
                   <p><strong>Description:</strong> {complaintData.description}</p>
                   <p><strong>Complaint Type:</strong> {complaintData.complaintType}</p>
                   <p>
@@ -87,12 +125,49 @@ const ComplaintDetail = () => {
                       />
                     </div>
                   )}
+
+                  {complaintData.status === 'Resolved' ? (
+                    givingFeedback ? (
+                      <div className="mt-4">
+                        <textarea
+                          className="w-full p-2 rounded-md bg-gray-700 text-white"
+                          placeholder="Enter your feedback here..."
+                          value={feedback}
+                          onChange={(e) => setFeedback(e.target.value)}
+                          rows={4}
+                        />
+                        <div className="mt-2 flex gap-2">
+                          <button
+                            onClick={handleFeedbackSubmit}
+                            className="bg-green-600 text-white px-4 py-2 rounded-md"
+                            disabled={updating}
+                          >
+                            {updating ? 'Submitting...' : 'Submit Feedback'}
+                          </button>
+                          <button
+                            onClick={() => setGivingFeedback(false)}
+                            className="bg-gray-600 text-white px-4 py-2 rounded-md"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setGivingFeedback(true)}
+                        className="bg-green-600 text-white px-4 py-2 rounded-md"
+                      >
+                        Give Feedback
+                      </button>
+                    )
+                  ) : (
+                    ""
+                  )}
                 </div>
               ) : (
                 <p className="text-center text-gray-400">No complaint details found.</p>
               )}
             </div>
-            </>
           )}
         </div>
       </div>

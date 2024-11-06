@@ -88,6 +88,7 @@ const Laundry = () => {
       console.log("API Response:", response);
       showSnackbar("Laundry request submitted successfully");
     } catch (error) {
+      showSnackbar("Failed to submit laundry request. Please try again.", "red");
       console.log("API Error:", error);
     } finally {
       setSubmitting(false);

@@ -54,6 +54,7 @@ const RegisterStudent = () => {
       showSnackbar('Registration Successful !!');
       navigate("/dashboard");
     } catch (error) {
+      showSnackbar('Registration Failed !!','red');
       console.error('Registration Error:', error);
     } finally {
       setLoading(false); // Set loading to false after the request is complete
