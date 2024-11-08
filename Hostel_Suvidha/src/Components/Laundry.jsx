@@ -60,7 +60,6 @@ const Laundry = () => {
 
     const newEntry = {
       clothes: totalClothes,
-      date: values.date,
       status: "PENDING",
       items: values,
     };
@@ -88,20 +87,11 @@ const Laundry = () => {
       console.log("API Response:", response);
       showSnackbar("Laundry request submitted successfully");
     } catch (error) {
-      showSnackbar("Failed to submit laundry request. Please try again.", "red");
       console.log("API Error:", error);
     } finally {
       setSubmitting(false);
       setUpdate(!update);
     }
-  };
-
-  const validate = (values) => {
-    const errors = {};
-    if (!values.date) {
-      errors.date = "Required";
-    }
-    return errors;
   };
 
   return (
@@ -129,34 +119,15 @@ const Laundry = () => {
                     shorts: 0,
                     pants: 0,
                     towel: 0,
-                    date: "",
                   }}
-                  validate={validate}
                   onSubmit={handleSubmit}
                 >
                   {({ errors, touched }) => (
                     <Form className="space-y-4">
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
-                        <h1 className="text-xl">List Of Clothes</h1>
-                        <div className="flex gap-2 items-center justify-end">
-                          <label className="block text-sm font-medium">
-                            DATE :{" "}
-                          </label>
-                          <Field
-                            name="date"
-                            type="date"
-                            className={`mt-1 block w-full lg:w-[40%] border-none rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white bg-[#171A1C] p-2 placeholder-gray-400 ${
-                              errors.date && touched.date ? "border-red-500" : ""
-                            }`}
-                          />
-                          {errors.date && touched.date && (
-                            <div className="text-red-500 text-sm">
-                              {errors.date}
-                            </div>
-                          )}
-                        </div>
+                        <h1 className="text-xl font-bold">List Of Clothes :</h1>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 p-4">
                         {[
                           "T-SHIRTS",
                           "LOWER",
@@ -169,7 +140,7 @@ const Laundry = () => {
                         ].map((item) => (
                           <div key={item}>
                             <label className="block text-sm font-medium text-white">
-                              {item}
+                              {item} :
                             </label>
                             <Field
                               name={item.toLowerCase()}
@@ -182,8 +153,7 @@ const Laundry = () => {
                       </div>
                       <button
                         type="submit"
-                        className=" bg-indigo-600 text-white py-2 px-10 mx-auto block rounded-xl hover:bg-indigo-700"
-                      >
+                        className=" bg-[#7380EC] text-white py-2 px-14 mx-auto block rounded-xl hover:bg-indigo-700">
                         Submit
                       </button>
                     </Form>
@@ -191,24 +161,22 @@ const Laundry = () => {
                 </Formik>
               </div>
               <div className="p-6 bg-[#202528] -mr-5 border-t-8 border-[#7380EC] lg:w-[70vh] rounded-md h-[70vh] overflow-y-scroll custom-scroll">
-                <h1 className="text-xl pb-6 font-bold sticky -top-6 pt-4 bg-[#202528] z-10 ">Previous Clothes:</h1>
+                <h1 className="text-xl pb-6 font-bold sticky -top-6 pt-4 bg-[#202528] z-10 ">Previous Clothes :</h1>
                 <div className="flex flex-col gap-4">
                   {Array.isArray(previousClothes) && previousClothes.length > 0 ? (
                     previousClothes.map((entry, index) => (
                       <div
                         key={index}
-                        className="card p-4 rounded-md bg-[#171A1C] flex flex-col"
-                      >
+                        className="card p-4 rounded-md bg-[#171A1C] flex flex-col">
                         <div className="head font-bold text-xl flex justify-between">
-                          <div className="no">{index + 1}.</div>
-                          <div>{entry.totalClothes || entry.clothes} Clothes</div>
+                            <div className="no">{index + 1}) Total Clothes :  {entry.totalClothes || entry.clothes} </div>
                           <div>
-                            {entry.createdAt
-                              ?.split("T")[0]
-                              .split("-")
-                              .reverse()
-                              .join("/")}
-                          </div>
+                              {entry.createdAt
+                                ?.split("T")[0]
+                                .split("-")
+                                .reverse()
+                                .join("/")}
+                            </div>
                         </div>
                         <div className="type mt-4 gap-2 flex flex-wrap">
                           {Object.entries(entry.clothes || {}).map(
@@ -256,16 +224,15 @@ const Laundry = () => {
                         </div>
 
                         <div className="status flex justify-between mt-2 items-center">
-                          <h2 className="font-bold text-md">RECEIVED STATUS : </h2>
-                          <h2 className={`${entry.receivedStatus === "Received" ? "text-green-500" : "text-yellow-400"} font-bold text-md`}>
-                            {entry.receivedStatus || "Not Received"}
+                          <h2 className="font-bold text-md">RETURN STATUS : </h2>
+                          <h2 className={`${entry.returnStatus === "Returned" ? "text-green-500" : "text-yellow-400"} font-bold text-md`}>
+                            {entry.returnStatus || "Pending"}
                           </h2>
                         </div>
-
                       </div>
                     ))
                   ) : (
-                    <p>No previous clothes found</p>
+                    <div>No previous laundry entries found</div>
                   )}
                 </div>
               </div>
