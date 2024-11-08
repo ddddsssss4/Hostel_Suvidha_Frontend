@@ -33,6 +33,13 @@ import AdminDashboard from "./Components/AdminDashboard";
 import AdminLayout from "./Components/AdminLayout";
 import AdminComplaints from "./Components/AdminComplaints";
 import AdminGateEntries from "./Components/AdminGateEntries";
+import AdminComplaintDetail from "./Components/AdminComplaintDetail";
+
+//Staff Pages
+
+import StaffComplaintsPage from "./Components/StaffComplaintsPage"
+import StaffDashboard from "./Components/StaffDashboard";
+import StaffLayout from "./Components/StaffLayout"
 
 const App = () => (
   <BrowserRouter>
@@ -69,6 +76,13 @@ const App = () => (
         <Route path="/admins/dashboard" element={<AdminDashboard />} />
         <Route path="/admins/complaints" element={<AdminComplaints/>} />
         <Route path="/admins/inOut" element={<AdminGateEntries/>} />
+        <Route path="/admins/complaints/:complaintId" element={<AdminComplaintDetail />} />
+      </Route>
+
+      {/* Staff Routes */}
+      <Route element={<StaffLayout/>}>
+        <Route path="/staff/complaints" element={<StaffComplaintsPage/>}/>     
+        <Route path="/staff/dashboard" element={<StaffDashboard/>}/>     
       </Route>
     </Routes>
       </SnackbarProvider>

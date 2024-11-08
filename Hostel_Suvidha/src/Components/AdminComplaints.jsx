@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useSnackbar } from './SnackbarContext';
 import Spinner from './Spinner';
 
 const AdminComplaints = () => {
@@ -10,7 +9,6 @@ const AdminComplaints = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [error, setError] = useState(null);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const { showSnackbar } = useSnackbar(); 
 
   const categories = [
     'ALL', 'ELECTRONIC', 'FURNITURE', 'WASHROOM', 'ROOM SERVICE', 
@@ -38,41 +36,7 @@ const AdminComplaints = () => {
   }, [backendUrl, token]);
 
   // Handle status update
-  const handleStatusChange = async (complaintId, newStatus) => {
-    setIsUpdating(true);
-    setError(null);
-    try {
-      const response = await axios.post(`${backendUrl}/admins/updateComplaintStatus`, {
-        complaintId,
-        status: newStatus
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
 
-      if (response.status === 200) {
-        setComplaintsData(prevData =>
-          prevData.map(complaint =>
-            complaint._id === complaintId
-              ? { ...complaint, status: newStatus }
-              : complaint
-          )
-        );
-        showSnackbar("Status updated successfully.");
-      } else {
-        showSnackbar("Failed to update status. Please try again.", "red");
-        console.error("Failed to update status.", response.statusText);
-      }
-    } catch (err) {
-      console.error("Error updating status:", err);
-      showSnackbar("Failed to update status. Please try again.", "red");
-      setError("Failed to update status. Please try again.");
-    } finally {
-      setIsUpdating(false);
-    }
-  };
 
   // Filtered complaints based on selected category
   const filteredComplaints = complaintsData.filter(complaint =>
@@ -118,7 +82,6 @@ const AdminComplaints = () => {
                 <th className="py-3 px-6">Type of Complaint</th>
                 <th className="py-3 px-6">Title</th>
                 <th className="py-3 px-6">Status</th>
-                <th className="py-3 px-6">Actions</th>
                 <th className="py-3 px-6">Details</th>
               </tr>
             </thead>
@@ -138,28 +101,8 @@ const AdminComplaints = () => {
                       }`}>
                         {complaint.status}
                       </td>
-                      <td className="py-3 px-6">
-                        {complaint.status === 'Pending' && (
-                          <button
-                            className="px-3 py-1 rounded-full font-bold bg-blue-400 text-gray-800"
-                            onClick={() => handleStatusChange(complaint._id, 'InProgress')}
-                            disabled={isUpdating}
-                          >
-                            Move to In Progress
-                          </button>
-                        )}
-                        {complaint.status === 'InProgress' && (
-                          <button
-                            className="px-3 py-1 rounded-full font-bold bg-green-400 text-gray-800"
-                            onClick={() => handleStatusChange(complaint._id, 'Resolved')}
-                            disabled={isUpdating}
-                          >
-                            Move to Resolved
-                          </button>
-                        )}
-                      </td>
                       <td className="py-3 px-6 text-blue-400 cursor-pointer">
-                        {complaint.status !== 'Resolved' && <a href={`/complaints/${complaint._id}`}>Details</a>}
+                        {complaint.status !== 'Resolved' && <a href={`/admins/complaints/${complaint._id}`}>Details</a>}
                       </td>
                     </tr>
                   ))

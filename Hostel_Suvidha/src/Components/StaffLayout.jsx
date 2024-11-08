@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import bgelm from "../assets/bgelement.png";
 
 
-const MainLayout = () => {
+const StaffLayout = () => {
 
   const NavLinkItem = ({ to, label }) => (
     <li className="mb-4">
@@ -26,9 +26,8 @@ const MainLayout = () => {
           </NavLink>
         </div>
         <ul className='pt-32 text-white font-poppins text-lg '>
-          <NavLinkItem to="/admins/dashboard" label="Dashboard"/>
-          <NavLinkItem to="/admins/complaints" label="Complaints" />
-          <NavLinkItem to="/admins/inOut" label="In-Out"/>
+          <NavLinkItem to="/staff/dashboard" label="Dashboard"/>
+          <NavLinkItem to="/staff/complaints" label="Complaints" />
         </ul>
         <div className='absolute bottom-6 left-0 w-full'>
           <NavLink to="/login" className="block py-4 px-6 hover:bg-[#0E1012] hover:border-l-4 hover:border-[#7380EC] text-[#7D8DA1] font-poppins text-xl font-bold">
@@ -52,4 +51,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default StaffLayout;

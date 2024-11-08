@@ -114,7 +114,7 @@ const AdminDashboard = () => {
                     <td className="px-4 py-2 text-white">{complaint.roomNumber}</td>
                     <td className="px-4 py-2">
                     {(complaint.status!='Resolved')?
-                      <a href={`/complaints/${complaint._id}`} className="text-blue-500 hover:underline">Details</a>
+                      <a href={`/admins/complaints/${complaint._id}`} className="text-blue-500 hover:underline">Details</a>
                      : ""}
                     </td>
                   </tr>
@@ -130,7 +130,7 @@ const AdminDashboard = () => {
             <div className="text-white text-sm">Description: {complaint.description}</div>
             <div className={`text-white text-sm ${getStatusClass(complaint.status)}`}>Status: {complaint.status}</div>
             {(complaint.status!='Resolved')?
-              <a href={`/complaints/${complaint._id}`} className="text-blue-500 hover:underline">Details</a>
+              <a href={`/admins/complaints/${complaint._id}`} className="text-blue-500 hover:underline">Details</a>
              : ""}
           </div>
         ))}
