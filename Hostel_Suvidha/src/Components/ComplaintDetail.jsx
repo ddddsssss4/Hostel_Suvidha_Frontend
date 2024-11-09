@@ -20,7 +20,7 @@ const ComplaintDetail = () => {
   useEffect(() => {
     const fetchComplaintData = async () => {
       try {
-        const response = await axios.get(`${backendUrl}/admins/getAllComplaints`, {
+        const response = await axios.get(`${backendUrl}/students/allComplaints`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -49,7 +49,7 @@ const ComplaintDetail = () => {
 
     setUpdating(true);
     try {
-      const response = await axios.post(`${backendUrl}/students/submitFeedback`, {
+      const response = await axios.post(`${backendUrl}/students/giveFeedback`, {
         complaintId,
         feedback,
       }, {
