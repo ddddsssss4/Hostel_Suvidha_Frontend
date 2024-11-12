@@ -84,7 +84,7 @@ const StaffDashboard = () => {
           </div>
 
           {/* Assigned Complaints Section */}
-          <h2 className="text-xl font-extrabold text-white mb-4 mt-8">ASSIGNED COMPLAINTS</h2>
+          <a href='/staff/complaints' className="text-xl font-extrabold text-blue-500 mb-4 mt-8">ASSIGNED COMPLAINTS</a>
 
           <div className="w-full md:w-[full] bg-[#202528] rounded-xl overflow-x-auto shadow-black h-[36vh] overflow-y-auto custom-scroll">
             <table className="min-w-full hidden md:table text-left border-collapse">

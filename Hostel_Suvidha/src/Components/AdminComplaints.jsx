@@ -6,7 +6,7 @@ const AdminComplaints = () => {
   const token = localStorage.getItem("accessToken");
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [complaintsData, setComplaintsData] = useState([]);
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(true);
   const [error, setError] = useState(null);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -30,12 +30,13 @@ const AdminComplaints = () => {
         console.error("Error fetching complaints data:", error);
         setError("Failed to fetch complaints. Please try again later.");
       }
+      finally{
+        setIsUpdating(false);
+      }
     };
 
     fetchComplaints();
   }, [backendUrl, token]);
-
-  // Handle status update
 
 
   // Filtered complaints based on selected category
