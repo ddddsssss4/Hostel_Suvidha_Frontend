@@ -81,14 +81,14 @@ const Login = () => {
                   onChange={handleRoleChange}
                 /> Student
               </label>
-              {/* <label className="text-white">
+              <label className="text-white">
                 <input
                   type="radio"
                   value="staff"
                   checked={role === 'staff'}
                   onChange={handleRoleChange}
                 /> Staff
-              </label> */}
+              </label>
               <label className="text-white">
                 <input
                   type="radio"

@@ -40,6 +40,8 @@ import AdminComplaintDetail from "./Components/AdminComplaintDetail";
 import StaffComplaintsPage from "./Components/StaffComplaintsPage"
 import StaffDashboard from "./Components/StaffDashboard";
 import StaffLayout from "./Components/StaffLayout"
+import LaundryStaffDashboard from "./Components/LaundryStaffDashboard";
+import LaundryStaffLayout from "./Components/LaundryStaffLayout";
 
 const App = () => (
   <BrowserRouter>
@@ -83,6 +85,12 @@ const App = () => (
       <Route element={<StaffLayout/>}>
         <Route path="/staff/complaints" element={<StaffComplaintsPage/>}/>     
         <Route path="/staff/dashboard" element={<StaffDashboard/>}/>     
+      </Route>
+
+      {/* Laundry Staff Routes */}
+      <Route element={<LaundryStaffLayout/>}>
+      <Route path="laundry/staff/dashboard" element={<LaundryStaffDashboard/>}/>   
+      {/* <Route path="laundry/complaints" element={<LaundryStaffComplain/>}/>  */}
       </Route>
     </Routes>
       </SnackbarProvider>
