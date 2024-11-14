@@ -58,8 +58,8 @@ const StaffComplaintsPage = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-[#181A1E] text-gray-200">
-      <h1 className="text-3xl font-bold text-center text-gray-100 mb-6">Assigned Complaints</h1>
+    <div className="min-h-screen p-6 bg-transparent text-gray-200">
+      <h1 className="text-3xl font-bold text-gray-100 my-12">Assigned Complaints</h1>
 
       {loading ? (
         <div className="flex justify-center items-center">

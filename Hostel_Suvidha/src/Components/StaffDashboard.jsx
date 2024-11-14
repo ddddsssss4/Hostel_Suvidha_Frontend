@@ -83,7 +83,6 @@ const StaffDashboard = () => {
             </div>
           </div>
 
-          {/* Assigned Complaints Section */}
           <a href='/staff/complaints' className="text-xl font-extrabold text-blue-500 mb-4 mt-8">ASSIGNED COMPLAINTS</a>
 
           <div className="w-full md:w-[full] bg-[#202528] rounded-xl overflow-x-auto shadow-black h-[36vh] overflow-y-auto custom-scroll">
@@ -110,13 +109,12 @@ const StaffDashboard = () => {
               </tbody>
             </table>
 
-            {/* Mobile view */}
             <div className="md:hidden">
               {complaints.map((complaint) => (
                 <div key={complaint._id} className="bg-[#202528] p-4 mb-4 rounded-xl shadow-md">
                   <div className="text-white font-bold text-lg">{complaint.title}</div>
                   <div className="text-white text-sm">Description: {complaint.description}</div>
-                  <div className={`text-white text-sm ${getStatusClass(complaint.status)}`}>Status: {complaint.status}</div>
+                  <div className={`text-white text-sm`}>Status: <p className={` ${getStatusClass(complaint.status)} inline`}>{complaint.status}</p></div>
                 </div>
               ))}
             </div>
