@@ -52,9 +52,11 @@ const AdminDashboard = () => {
     switch (status) {
       case "Pending":
         return "text-orange-400";
-      case "Completed":
+      case "InProgress":
+        return "text-blue-400";
+      case "Resolved":
         return "text-green-400";
-      case "Declined":
+      case "Closed":
         return "text-red-400";
       default:
         return "text-white";

@@ -40,10 +40,30 @@ const AdminComplaintDetail = () => {
     fetchComplaintData();
   }, [backendUrl, complaintId, token, showSnackbar]);
 
+    
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "Pending":
+        return "text-orange-400";
+      case "InProgress":
+        return "text-blue-400";
+      case "Resolved":
+        return "text-green-400";
+      case "Closed":
+        return "text-red-400";
+      default:
+        return "text-white";
+    }
+  };
+
   const handleStatusChange = async (newStatus) => {
-    if (!assignedStaff) {
-      showSnackbar("Please assign a staff member before updating the status.", "red");
+    if(newStatus != 'InProgress'){
+      showSnackbar("Please wait for the assigned staff to resolve the complaint.", "red");
       return;
+    }
+    if (!assignedStaff) {
+        showSnackbar("Please assign a staff member before updating the status.", "red");
+        return;
     }
 
     setUpdating(true);
@@ -91,7 +111,7 @@ const AdminComplaintDetail = () => {
                   <p><strong>Complaint Type:</strong> {complaintData.complaintType}</p>
                   <p>
                     <strong>Status: </strong>
-                    <span className="px-3 py-1 rounded-full text-sm font-semibold">
+                    <span className={`px-3 py-1 ${getStatusClass(complaintData.status)} rounded-full text-md font-semibold`}>
                       {complaintData.status}
                     </span>
                   </p>
