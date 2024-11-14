@@ -27,11 +27,11 @@ const MainLayout = () => {
         </div>
         <ul className='pt-32 text-white font-poppins text-lg '>
           <NavLinkItem to="students/dashboard" label="Dashboard"/>
-          <NavLinkItem to="/laundry" label="Laundry"/>
-          <NavLinkItem to="/complaints" label="Complaints" />
-          <NavLinkItem to="/inOut" label="In-Out"/>
-          <NavLinkItem to="/requests" label="Requests" />
-          <NavLinkItem to="/Outpassleave" label="Outpass &Leave"/>
+          <NavLinkItem to="/students/laundry" label="Laundry"/>
+          <NavLinkItem to="/students/complaints" label="Complaints" />
+          <NavLinkItem to="/students/inOut" label="In-Out"/>
+          <NavLinkItem to="/students/requests" label="Requests" />
+          <NavLinkItem to="/students/Outpassleave" label="Outpass &Leave"/>
         </ul>
         <div className='absolute bottom-6 left-0 w-full'>
           <NavLink to="/login" className="block py-4 px-6 hover:bg-[#0E1012] hover:border-l-4 hover:border-[#7380EC] text-[#7D8DA1] font-poppins text-xl font-bold">

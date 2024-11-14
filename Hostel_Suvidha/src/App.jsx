@@ -53,20 +53,20 @@ const App = () => (
         <Route path="students/dashboard" element={<Dashboard />} />
 
         {/* <Route path="/" element={<Dashboard />} /> */}
-        <Route path="/complaints" element={<Complaints />} />
-        <Route path="/requests" element={<Requests />} />
-        <Route path="/laundry" element={<Laundry />} />
-        <Route path="/inOut" element={<InOut />} />
-        <Route path="/Outpassleave" element={<Outpassleave />} />
-        <Route path="/Complaints/Electronic" element={<Electronic />} />
-        <Route path="/Complaints/Furniture" element={<Furniture />} />
-        <Route path="/Complaints/Washroom" element={<WashRoom />} />
-        <Route path="/Complaints/RoomService" element={<RoomService />} />
-        <Route path="/Complaints/Disciplinary" element={<Disciplinary />} />
-        <Route path="/Complaints/Wifi" element={<Wifi />} />
-        <Route path="/Complaints/Miscellaneous" element={<Miscellaneous />} />
-        <Route path="/Complaints/Grievances" element={<Grievances />} />
-        <Route path="/complaints/:complaintId" element={<ComplaintDetail />} />
+        <Route path="/students/complaints" element={<Complaints />} />
+        <Route path="/students/requests" element={<Requests />} />
+        <Route path="/students/laundry" element={<Laundry />} />
+        <Route path="/students/inOut" element={<InOut />} />
+        <Route path="/students/Outpassleave" element={<Outpassleave />} />
+        <Route path="/students/Complaints/Electronic" element={<Electronic />} />
+        <Route path="/students/Complaints/Furniture" element={<Furniture />} />
+        <Route path="/students/Complaints/Washroom" element={<WashRoom />} />
+        <Route path="/students/Complaints/RoomService" element={<RoomService />} />
+        <Route path="/students/Complaints/Disciplinary" element={<Disciplinary />} />
+        <Route path="/students/Complaints/Wifi" element={<Wifi />} />
+        <Route path="/students/Complaints/Miscellaneous" element={<Miscellaneous />} />
+        <Route path="/students/Complaints/Grievances" element={<Grievances />} />
+        <Route path="/students/complaints/:complaintId" element={<ComplaintDetail />} />
       </Route>
 
       <Route path="/login" element={<LoginPage />} />
@@ -90,7 +90,7 @@ const App = () => (
       {/* Laundry Staff Routes */}
       <Route element={<LaundryStaffLayout/>}>
       <Route path="laundry/staff/dashboard" element={<LaundryStaffDashboard/>}/>   
-      {/* <Route path="laundry/complaints" element={<LaundryStaffComplain/>}/>  */}
+      {/* <Route path="laundry/complaints" element={<LaundryStaffStatus/>}/>  */}
       </Route>
     </Routes>
       </SnackbarProvider>
