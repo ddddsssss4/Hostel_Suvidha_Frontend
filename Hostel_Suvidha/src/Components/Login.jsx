@@ -12,8 +12,8 @@ const Login = () => {
     username: '',
     password: ''
   });
-  const [role, setRole] = useState('students'); // State to track selected role
-  const [loading, setLoading] = useState(false); // State to track loading
+  const [role, setRole] = useState('students');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
 
@@ -22,7 +22,6 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // Use 'username' if role is 'admins'; otherwise, use 'regNumber'
       const payload = {
         password: formData.password,
         ...(role === 'admins' ? { username: formData.username } : { regNumber: formData.regNumber })
@@ -32,19 +31,16 @@ const Login = () => {
       console.log('Response:', response.data);
       const { accessToken, refreshToken, student } = response.data.data;
 
-      // Store login data in local storage
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('loginData', JSON.stringify({ data: response.data.data }));
-      
       if (role === 'students') localStorage.setItem('regNumber', student.regNumber);
-      
-      // Navigate based on role
+
       navigate(`/${role}/dashboard`);
     } catch (error) {
       showSnackbar('Invalid Credentials !!', 'red');
       console.error('There was an error!', error);
     } finally {
-      setLoading(false); // Set loading to false after login attempt finishes
+      setLoading(false);
     }
   };
 
@@ -61,10 +57,13 @@ const Login = () => {
   };
 
   return (
-    <div className='relative w-6/12 h-screen flex items-center justify-start'>
-      <img src={loginbg} className='absolute w-full h-3/12 object-fit z-0 rounded-xl' alt='Login Background' />
-      <div className='relative w-3/5 h-screen flex items-center justify-start'>
-        <form onSubmit={handleSubmit} className='absolute z-10 bg-opacity-80 p-8 rounded-xl max-w-md w-full' style={{ height: 'auto' }}>
+    <div className='relative w-[50%] h-screen flex items-center justify-start'>
+      <img src={loginbg} className='absolute w-full h-5/12 object-fit z-0 rounded-xl hidden md:block min-h-[500px]' alt='Login Background' />
+      <div className='relative w-full md:w-3/5 h-screen flex items-center justify-center px-4'>
+        <form
+          onSubmit={handleSubmit}
+          className='relative z-10 bg-opacity-80 rounded-xl max-w-md w-[80%]'
+        >
           <div className='mb-6'>
             <h1 className='font-poppins text-2xl mb-2 text-white font-bold'>LOGIN</h1>
             <div className='w-20 bg-[#7380EC] h-1 mb-4'></div>
@@ -105,7 +104,6 @@ const Login = () => {
           ) : (
             <>
               <div className='mb-4'>
-                {/* Render 'username' input for 'admins' role and 'regNumber' for others */}
                 {role === 'admins' ? (
                   <>
                     <label className='font-poppins block mb-1 text-white' htmlFor='username'>Username</label>
